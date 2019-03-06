@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>照片墙</title>
+    <link rel="stylesheet" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+        }
+        #photo-box{
+            width: 1140px;
+            height: 600px;
+            background: #e0f5ea;
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        .photo-smallclass{
+            width: 280px;
+            height: 250px;
+            float: left;
+            margin-left: 10px;
+
+        }
+        .photo-fisrt{
+            width: 300px;
+            height: 280px;
+            background: #cccccc;
+            margin-left: 56px;
+            margin-top: 15px;
+            float: left;
+        }
+        p{
+            text-align: center;
+            margin-top: 4px;
+        }
+        .add{
+            width: 300px;
+            height: 250px;
+            float: left;
+            margin-left: 56px;
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            border: 4px solid #cccccc;
+            text-align: center;
+            line-height: 250px;
+            font-size: 200px;
+          
+            color: aquamarine;
+        }
+        .add:hover{
+            cursor: pointer;
+        }
+        input{
+            width: 250px;
+            height: 40px;
+            border-radius: 10px;
+            border:1px solid #cccccc;
+            outline: none;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div id="photo-box">
+    <a href="photoPages/photo-class1.html ">
+        <div class="photo-fisrt">
+            <img class="photo-smallclass" src=" ../images/photowall/bubu.jpg"/>
+                <p>小芒果班</p>
+        </div>
+    </a>
+    <a href="photoPages/photo-class3.html">
+        <div class="photo-fisrt">
+            <img class="photo-smallclass" src="../images/photowall/timg2.jpg"/>
+               <p>小菊花班</p>
+        </div>
+    </a>
+    <a href="photoPages/photo-class4.html">
+        <div class="photo-fisrt">
+            <img class="photo-smallclass" src="../images/photowall/timg3.jpg"/>
+                <p>小面包班</p>
+        </div>
+    </a>
+
+    <a href="photoPages/photo-class5.html">
+        <div class="photo-fisrt">
+            <img class="photo-smallclass" src="../images/photowall/bubu.jpg"/>
+                 <p>小馒头班</p>
+        </div>
+    </a>
+<a href="">
+        <div class="photo-fisrt">
+         <!--   -->
+                 <p id="namer"></p>
+    </div>
+</a>
+    <!-- <a href="photoPages/photo-class7.html">
+        <div class="photo-fisrt">
+             <img class="photo-smallclass" src="../images/photowall/timg3.jpg"/>
+                   <p>小太阳班</p>
+        </div>
+    </a> -->
+    <a href="">
+   
+    </a>
+ 
+<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+  </button> -->
+  <div  class="add"  data-toggle="modal" data-target="#myModal">
+      +
+  </div>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width:336px;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">添加相册</h4>
+        </div>
+        <div class="modal-body">
+          <h4>请输入相册名</h4>
+          <input type="text" id="phoname">
+            <h4>上传相册封面</h4>
+            <input type="file" id="photocover">
+            <p id="showbabyimg"></p>
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="addphoto" data-dismiss="modal">添加</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</body>
+<script src="../dist/jquery-1.10.2.min.js"></script>
+<script src="../dist/bootstrap-3.3.7-dist/js/bootstrap.min.js">
+</script>
+<script>
+    var addphoto = $("#addphoto");
+    var babysrc;
+    var showbabyimg = document.getElementById('showbabyimg')
+    var photocover = document.getElementById('photocover');
+    photocover.addEventListener('change',function () {
+        /*创建一个文件阅读器*/
+        var oFReader = new FileReader();
+        /*获取文件，因为可以上传多个，所以是数组，咱们获取第一个就可以了*/
+        var file = photocover.files[0];
+        //!*通过文件阅读器,解析uRL地址，并且转化成base64格式*!/
+        oFReader.readAsDataURL(file);
+        //!*等文件阅读器加载完毕的时候*!/
+        oFReader.onloadend = function(ev){
+            //!*或者目标文件的解析结果*!/
+            babysrc = ev.target.result;
+            showbabyimg.innerHTML= '<img src="'+babysrc+'" width="173px" height="118px">';
+
+        }
+    });
+    addphoto.on('click',function () {
+        var str =$('#phoname').val();
+         $('#namer').html(str);
+         $('#namer').before('<img class="photo-smallclass" src="'+babysrc+'"/>');
+        showbabyimg.innerHTML = '';
+        $('#phoname').val('');
+        photocover.value = '';
+
+    })
+</script>
+</html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <link rel="stylesheet" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../font/font_887589_std16to2x1n/iconfont.css">
+    <script src="../dist/jquery-3.3.1.js"></script>
+    <script src="../dist/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #stu-box{
+            width: 1140px;
+            height: 600px;
+            background: #e0f5ea;
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        h2{
+            text-align: center;
+            color: #4B4B4B;
+            font-family: '幼圆';
+            font-weight: bold;
+        }
+        th{
+            height: 52px;
+            text-align: center;
+            font-size: 18px;
+            color: #5d5d5d;
+        }
+        td{
+            text-align: center;
+            height:42px;
+            font-size: 17px;
+            color: #4c4c4c;
+        }
+        header{
+            border-bottom: 1px solid #6e6e6e;
+        }
+        .iconfont{
+            font-size: 18px;
+        }
+        .iconfont{
+            cursor:pointer ;
+        }
+        #pageBox ul{
+            width: 400px;
+            height: 36px;
+            /*background: darkgrey;*/
+            position: absolute;
+            right: 58px;
+            bottom: 8px;
+        }
+        #pageBox ul li{
+            width: 54px;
+            height: 28px;
+            float: left;
+            font-size: 17px;
+            font-family: '微软雅黑';
+            text-align: center;
+            border: 1px solid #98aabb;
+            background: #f4f7f8;
+        }
+
+        #pageBox ul li:hover{
+            background: rgba(207, 255, 225, 0.4);
+            cursor: pointer;
+
+        }
+
+        #prepage,#nextpage{
+            font-size: 19px;
+            color: #404040;
+        }
+        /*以上部分为公用，无需修改*/
+
+        #stu-top{
+            height: 80px;
+            border-bottom: 1px solid #6e6e6e;
+        }
+        #stu-top-left{
+            float: left;
+            width: 540px;
+            height: 80px;
+        }
+        #stu-top-right{
+            float: right;
+            line-height: 80px;
+            margin-right: 60px;
+
+        }
+        #stu-tipTxt{
+            float: left;
+            line-height: 80px;
+            font-size: 18px;
+            margin-left: 48px;
+        }
+        #stu-input-group{
+            margin-top: 22px;
+        }
+        #stu-table-box{
+            width: 1100px;
+            margin: 40px auto;
+            /*border: 1px solid #6e6e6e;*/
+        }
+
+
+        /*字体图标颜色*/
+        .delete{
+            color: #e80000;
+        }
+        .edit{
+            color: #346fac;
+        }
+        .graduate{
+            color: #0f0f0f;
+        }
+        .upgrade{
+            color: #175bdc
+        }
+        .details{
+            color: #38c6b6;
+        }
+
+
+        .modal-body .add{
+            margin-left: 60px;
+            width: 200px;
+            height: 24px;
+        }
+        .modal-title{
+            text-align: center;
+            font-size: 20px;
+        }
+        .modal-button{
+            font-size: 15px;
+            width: 66px;
+            float: left;
+            margin-left: 20px;
+        }
+        .modal-lg{
+            width: 480px;
+        }
+        .modal-body .p-body{
+            width: 110px ;
+            float: left ;
+            font-size: 17px ;
+            line-height: 22px ;
+            margin-left: 60px ;
+        }
+        .modal-button-box{
+            width: 180px;
+
+            /*background: rosybrown;*/
+            margin-left: 260px;
+        }
+        /*删除弹框的样式*/
+        #delete{
+            color: #4a4a4a;
+            font-size: 17px;
+            text-align: center;
+            margin-top: 140px;
+        }
+
+
+        #stu-see .modal-body span{
+            margin-left: 58px;
+        }
+        .red{
+            font-size: 14px;
+            color: red;
+        }
+        .green{
+            color: green;
+        }
+        .stu_div{
+            position: relative;
+        }
+        .notice{
+            position: absolute;
+            top:0;
+            left:0;
+            margin-left: 400px;
+            margin-top: -18px;
+        }
+        .stu_div2{
+            position: relative;
+        }
+        .notice2{
+            position: absolute;
+            top:0;
+            left:0;
+            margin-left: 400px;
+            margin-top: 13px;
+        }
+    </style>
+
+
+</head>
+<body>
+<div id="stu-box">
+    <!--顶部(四字标题部分)-->
+    <header>
+        <h2>学生管理</h2>
+    </header>
+
+    <!--中间部分(查询+新建)-->
+    <section id="stu-top">
+
+        <div id="stu-top-left">
+
+            <div id="stu-tipTxt">点击查询：</div>
+
+            <div class="input-group" id="stu-input-group">
+
+                <div class="input-group-btn">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        按学号查询
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" >
+                        <li><a href="#">按学号查询</a></li>
+                        <li><a href="#">按姓名查询</a></li>
+                        <li><a href="#">按班级查询</a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" placeholder="请输入关键字" id="keyWord">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" id="google">搜索</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div  id="stu-top-right">
+            <!--新建班级按钮-->
+            <button class="btn btn-default"  type="button"  data-toggle="modal" data-target="#createStu" id="btn1">
+                <i class="iconfont">&#xe61f;</i>
+                <span>新增学生信息</span>
+            </button>
+            <!--弹出的模态框-->
+            <div class="modal fade" id="createStu" >
+                <div class="modal-dialog modal-lg" style="width: 600px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title" id="myNew">新建学生信息</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">学号*</p><input type="text" class="form-control add " id="stu-num" placeholder="从001开始"><span class="notice" id="span1"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">班级*</p><input type="text" class="form-control add" id="stu-classRoom" placeholder="格式；xx级xxx班" ><span class="notice" id="span2"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">姓名*</p><input type="text" class="form-control add" id="stu-name" placeholder="小朋友的姓名"><span class="notice" id="span3"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">性别*</p><input type="text" class="form-control add" id="stu-sex" placeholder="男/女"><span class="notice" id="span3"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">年龄*</p><input type="text" class="form-control add" id="stu-age" placeholder="小朋友的年龄"><span class="notice" id="span4"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">状态*</p><input type="text" class="form-control add" id="stu-state" placeholder="在校/休学/退学"><span class="notice" id="span5"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">家长*</p><input type="text" class="form-control add" id="stu-parentName" placeholder="家长姓名"><span class="notice" id="span6"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">关系*</p><input type="text" class="form-control add" id="stu-relation" placeholder="家长与小朋友的关系"><span class="notice" id="span7"></span></p></div>
+                            <div class="stu_div"><p class="form-inline clearfix"><p class="p-body">电话号码*</p><input type="text" class="form-control add" id="stu-tel" placeholder="家长电话号码"><span class="notice" id="span8"></span></p></div>
+                            <div style="height: 40px"></div>
+                            <p class="clearfix modal-button-box">
+                                <button type="button" class="btn btn-primary modal-button"id="stu-yes1">确定</button>
+                                <button type="button" class="btn btn-default modal-button" data-dismiss="modal" id="stu-no">取消</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--删除的弹框-->
+    <div class="modal " id="delete" data-index="">
+        <div class="modal-dialog modal-sm ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"  class="close" data-dismiss="modal" >
+                        <span >&times;</span>
+                    </button>
+                    <h4 class="modal-title">删除</h4>
+                </div>
+                <div class="modal-body">
+                    你确定要删除吗?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary yes" data-dismiss="modal" >确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--查看详情弹出的模态框-->
+    <div class="modal fade" id="details">
+
+    </div>
+    <!--编辑弹出的模态框-->
+    <div>
+    <div class="modal fade" id="write"  >
+        <div class="modal-dialog modal-lg" style="width: 600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="stu-write">编辑</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">学号*</p><input type="text" class="form-control add " id="studentNum" placeholder="从001开始" disabled="disabled"><span class="notice2" id="stuSpan1"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">班级*</p><input type="text" class="form-control add" id="studentClassRoom" placeholder="格式：xx级xxx班" ><span class="notice2" id="stuSpan2"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">姓名*</p><input type="text" class="form-control add" id="studentName" placeholder="小朋友的姓名"><span class="notice2" id="stuSpan3"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">性别*</p><input type="text" class="form-control add" id="studentSex" placeholder="男/女"><span class="notice2" id="stuSpan4"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">年龄*</p><input type="text" class="form-control add" id="studentAge" placeholder="小朋友的年龄" ><span class="notice2" id="stuSpan5"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">状态*</p><input type="text" class="form-control add" id="studentState" placeholder="在校/休学/退学"><span class="notice2" id="stuSpan6"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">家长*</p><input type="text" class="form-control add" id="studentParent" placeholder="家长姓名"><span class="notice2" id="stuSpan7"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">关系*</p><input type="text" class="form-control add" id="studentRelation" placeholder="家长与小朋友的关系"><span class="notice2" id="stuSpan8"></span></p></div>
+                    <div class="stu_div2"><p class="form-inline clearfix"><p class="p-body">电话号码*</p><input type="text" class="form-control add" id="studentTel" placeholder="家长电话号码"><span class="notice2" id="stuSpan9"></span></p></div>
+
+
+                    <div style="height: 40px"></div>
+                    <p class="clearfix modal-button-box">
+                        <button type="button" class="btn btn-primary modal-button"  id="stu-yes3">确定</button>
+                        <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--表格部分-->
+    <div id="stu-table-box">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>学号</th><th>班级</th><th>姓名</th><th>性别</th><th>年龄</th><th>状态</th><th>家长</th><th>关系</th><th>电话</th><th>查看</th><th>编辑</th><th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr>-->
+                <!--<td>001</td><td>小菊花班</td><td>小菊</td><td>女</td><td>4</td><td>大菊</td><td>母子</td><td>110112</td>-->
+                <!--<td><i class="iconfont details" data-toggle="modal" data-target="#myLook">&#xe612;</i></td>-->
+                <!--<td><i class="iconfont edit">&#xe696;</i></td>-->
+                <!--<td><i class="iconfont delete stu-delete" data-toggle="modal" data-target="#myModal">&#xe662;</i></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>002</td><td>小面包班</td><td>小包</td><td>男</td><td>5</td><td>老包</td><td>父子</td><td>113112</td>-->
+                <!--<td><i class="iconfont details">&#xe612;</i></td>-->
+                <!--<td><i class="iconfont edit">&#xe696;</i></td>-->
+                <!--<td><i class="iconfont delete stu-delete" data-toggle="modal" data-target="#myModal">&#xe662;</i></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>003</td><td>小芒果班</td><td>小果</td><td>女</td><td>4</td><td>大果</td><td>母子</td><td>110113</td>-->
+                <!--<td><i class="iconfont details">&#xe612;</i></td>-->
+                <!--<td><i class="iconfont edit">&#xe696;</i></td>-->
+                <!--<td><i class="iconfont delete stu-delete" data-toggle="modal" data-target="#myModal">&#xe662;</i></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>004</td><td>向日葵班</td><td>小新</td><td>男</td><td>4</td><td>美芽</td><td>母子</td><td>119112</td>-->
+                <!--<td><i class="iconfont details">&#xe612;</i></td>-->
+                <!--<td><i class="iconfont edit">&#xe696;</i></td>-->
+                <!--<td><i class="iconfont delete stu-delete" data-toggle="modal" data-target="#myModal">&#xe662;</i></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>005</td><td>小馒头班</td><td>小书</td><td>男</td><td>5</td><td>老叔</td><td>父子</td><td>130112</td>-->
+                <!--<td><i class="iconfont details">&#xe612;</i></td>-->
+                <!--<td><i class="iconfont edit">&#xe696;</i></td>-->
+                <!--<td><i class="iconfont delete stu-delete" data-toggle="modal" data-target="#myModal">&#xe662;</i></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>006</td><td>小菊花班</td><td>秋香</td><td>女</td><td>4</td><td>唐伯虎</td><td>父子</td><td>114112</td>-->
+                <!--<td><i class="iconfont details">&#xe612;</i></td>-->
+                <!--<td><i class="iconfont edit">&#xe696;</i></td>-->
+                <!--<td><i class="iconfont delete stu-delete" data-toggle="modal" data-target="#myModal">&#xe662;</i></td>-->
+            <!--</tr>-->
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+
+    <!--分页部分-->
+    <!--分页部分-->
+    <div id="pageBox">
+        <ul>
+            <li>首页</li>
+            <li><i class="iconfont" id="prepage"><<</i></li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li><i class="iconfont" id="nextpage">>></i></li>
+            <li>尾页</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+
+    var studentArr=[
+        {num:'001', classRoom:'17级小菊花班',name:'小菊',sex:'女',age:'4',state:'在校',parentName:'大菊',relation:'母子',tel:'13980319910'},
+        {num:'002', classRoom:'16级小面包班',name:'小包',sex:'男',age:'5',state:'在校',parentName:'老包',relation:'父子',tel:'13980319911'},
+        {num:'003', classRoom:'18级小芒果班',name:'小果',sex:'女',age:'4',state:'在校',parentName:'大果',relation:'母子',tel:'13980319912'},
+        {num:'004', classRoom:'17级向日葵班',name:'小新',sex:'男',age:'5',state:'在校',parentName:'美芽',relation:'母子',tel:'13980319913'},
+        {num:'005', classRoom:'16级小馒头班',name:'小书',sex:'男',age:'5',state:'在校',parentName:'老叔',relation:'父子',tel:'13980319914'},
+        {num:'006', classRoom:'17级小菊花班',name:'秋香',sex:'女',age:'5',state:'在校',parentName:'唐伯虎',relation:'父女',tel:'13980319915'},
+    ];
+    //初始化数据
+    $('#btn1').click(function () {
+        $('.notice').text('');
+    });
+    $('#btn2').click(function () {
+        $('.notice2').text('');
+    });
+    function into(){
+        $('tbody').html('');
+        $.each(studentArr,function (i,v,e) {
+            $('tbody').append(`<tr data-index="${i}">
+                                        <td>${v.num}</td>
+                                        <td>${v.classRoom}</td>
+                                        <td>${v.name}</td>
+                                        <td>${v.sex}</td>
+                                        <td>${v.age}</td>
+                                        <td>${v.state}</td>
+                                        <td>${v.parentName}</td>
+                                        <td>${v.relation}</td>
+                                        <td>${v.tel}</td>
+                                        <td><i class="iconfont details" data-toggle="modal" data-target="#details">&#xe612;</i></td>
+                                        <td><i class="iconfont edit"  data-toggle="modal" data-target="#write" data-index="${i}" id="btn2">&#xe696;</i></td>
+                                        <td><i class="iconfont delete"  data-toggle="modal" data-target="#delete" data-index="${i}">&#xe662;</i></td>
+                                    </tr>`)
+        });
+    }
+    into();
+
+    //添加数据
+    $('#stu-yes1').click(function () {
+
+
+       if(!$('#stu-num').val()==''||!$('#stu-classRoom').val()==''||!$('#stu-name').val()==''||!$('#stu-sex').val()==''||!$('#stu-age').val()==''||!$('#stu-state').val()==''||!$('#stu-parentName').val()==''||!$('#stu-relation').val()==''||!$('#stu-tel').val()==''){
+           if($('#span1').attr('class')=='notice green'&&$('#span2').attr('class')=='notice green'&&$('#span3').attr('class')=='notice green'&&$('#span4').attr('class')=='notice green'&&$('#span5').attr('class')=='notice green'&&$('#span6').attr('class')=='notice green'&&$('#span7').attr('class')=='notice green'&&$('#span8').attr('class')=='notice green'&&$('#span9').attr('class')=='notice green'){
+               var sNum=$('#stu-num').val();
+               var sClassRoom=$('#stu-classRoom').val();
+               var sName=$('#stu-name').val();
+               var sSex=$('#stu-sex').val();
+               var sAge=$('#stu-age').val();
+               var sState=$('#stu-state').val();
+               var sParentName=$('#stu-parentName').val();
+               var sRelation=$('#stu-relation').val();
+               var sTel=$('#stu-tel').val();
+
+               studentArr.push(
+                   {
+                       num:sNum,
+                       classRoom:sClassRoom,
+                       name:sName,
+                       sex:sSex,
+                       age:sAge,
+                       state:sState,
+                       parentName:sParentName,
+                       relation:sRelation,
+                       tel:sTel
+                   }
+               );
+               $('#stu-num').val('');
+               $('#stu-classRoom').val('');
+               $('#stu-name').val('');
+               $('#stu-sex').val('');
+               $('#stu-age').val('');
+               $('#stu-state').val('');
+               $('#stu-parentName').val('');
+               $('#stu-relatoion').val('');
+               $('#stu-tel').val('');
+
+               into()
+           }else {
+               alert('请输入正确信息')
+           }
+           $('#stu-yes1').attr('data-dismiss','modal')
+       }else {
+           alert('请输入完整信息')
+       }
+
+    });
+
+    /*删除*/
+    $('#delete').on('show.bs.modal', function (e) {
+        $(this).attr('data-index', $(e.relatedTarget).attr('data-index'));
+        console.log($(e.relatedTarget))
+    });
+
+    $('#delete').on('click', '.yes', function (e) {
+        var n = $('#delete').attr('data-index');
+        studentArr.splice(n, 1);           //从数组中删除此条记录
+        into();
+    });
+
+//查看
+    $('tbody').on('click', '.details', function () {
+        var index = $(this).parents('tr').attr('data-index');
+        $('#details').html('').append(`<div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title">详细信息</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p class="form-inline clearfix"><p class="p-body">学号:</p><span>${studentArr[index].num}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">班级:</p><span>${studentArr[index].classRoom}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">姓名:</p><span>${studentArr[index].name}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">性别:</p><span>${studentArr[index].sex}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">年龄:</p><span>${studentArr[index].age}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">状态:</p><span>${studentArr[index].state}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">家长:</p><span>${studentArr[index].parentName}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">关系:</p><span>${studentArr[index].relation}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">电话:</p><span>${studentArr[index].tel}</span></p>
+
+                            <div style="height: 40px"></div>
+                            <p class="clearfix modal-button-box">
+                                <button type="button" class="btn btn-primary modal-button" data-dismiss="modal">确定</button>
+                                <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>`);
+
+    });
+   //搜索
+    $('#google').click(function () {
+        $('tbody tr').hide().filter(":contains('" +($('#keyWord').val()) + "')").show();
+    });
+
+//编辑
+    $('tbody').on('click','.edit',function () {
+
+                $('.notice2').text('');
+                index= $(this).parents('tr').attr('data-index');
+                $('#studentNum').val(studentArr[index].num);
+                $('#studentClassRoom').val(studentArr[index].classRoom);
+                $('#studentName').val(studentArr[index].name);
+                $('#studentSex').val(studentArr[index].sex);
+                $('#studentAge').val(studentArr[index].age);
+                $('#studentState').val(studentArr[index].state);
+                $('#studentParent').val(studentArr[index].parentName);
+                $('#studentRelation').val(studentArr[index].relation);
+                $('#studentTel').val(studentArr[index].tel);
+
+
+                $('#stu-yes3').click(function () {
+                    var newNum = $('#studentNum').val();
+                    var newClassName = $('#studentClassRoom').val();
+                    var newName = $('#studentName').val();
+                    var newSex = $('#studentSex').val();
+                    var newAge = $('#studentAge').val();
+                    var newState = $('#studentState').val();
+                    var newParent = $('#studentParent').val();
+                    var newRelation = $('#studentRelation').val();
+                    var newTel = $('#studentTel').val();
+
+                    studentArr[index]={
+                        num:newNum,
+                        classRoom:newClassName,
+                        name:newName,
+                        sex:newSex,
+                        age:newAge,
+                        state:newState,
+                        parentName:newParent,
+                        relation:newRelation,
+                        tel:newTel,
+                    };
+                    into();
+
+                })
+
+    });
+
+//新建正则
+    var reg={
+        num:/^0\d\d$/,
+        className:/^[0-2][0-9]级[\u4e00-\u9fa5]{2,4}班$/,
+        name: /^[\u4E00-\u9FA5A-Za-z]+$/,
+        sex:/^(男|女)$/,
+        age:/^(\d\d{0,1}|100)$/,
+        state:/^(退学|休学|在校)$/,
+        parentName:/^[\u4E00-\u9FA5A-Za-z]+$/,
+        relation:/^[\u4E00-\u9FA5A-Za-z]+$/,
+        tel:/^1[3-9]\d{9}$/,
+    };
+
+    $('#stu-num').blur(function () {
+    var sNum=$('#stu-num').val()
+    if (!reg.num.test(sNum)){
+        $('.notice').eq(0).html('请输入正确学号');
+        $('.notice').eq(0).removeClass('green');
+        $('.notice').eq(0).addClass('red')
+    }else {
+        $('.notice').eq(0).html('√');
+        $('.notice').eq(0).addClass('green')
+        $('.notice').eq(0).removeClass('red')
+    }
+});
+    $('#stu-classRoom').blur(function () {
+        var sClassRoom=$('#stu-classRoom').val();
+        if (!reg.className.test(sClassRoom)){
+            $('.notice').eq(1).html('请输入正确班级名称');
+            $('.notice').eq(1).removeClass('green');
+            $('.notice').eq(1).addClass('red')
+        }else {
+            $('.notice').eq(1).html('√');
+            $('.notice').eq(1).addClass('green');
+            $('.notice').eq(1).removeClass('red')
+        }
+    });
+    $('#stu-name').blur(function () {
+        var sName=$('#stu-name').val();
+        if (!reg.name.test(sName)){
+            $('.notice').eq(2).html('请输入正确姓名！');
+            $('.notice').eq(2).removeClass('green');
+            $('.notice').eq(2).addClass('red')
+        }else {
+            $('.notice').eq(2).html('√');
+            $('.notice').eq(2).addClass('green');
+            $('.notice').eq(2).removeClass('red')
+        }
+    });
+    $('#stu-sex').blur(function () {
+        var sSex=$('#stu-sex').val();
+        if (!reg.sex.test(sSex)){
+            $('.notice').eq(3).html('请输入正确性别！');
+            $('.notice').eq(3).removeClass('green');
+            $('.notice').eq(3).addClass('red')
+        }else {
+            $('.notice').eq(3).html('√');
+            $('.notice').eq(3).addClass('green');
+            $('.notice').eq(3).removeClass('red')
+        }
+    });
+    $('#stu-age').blur(function () {
+        var sAge=$('#stu-age').val();
+        if (!reg.age.test(sAge)){
+            $('.notice').eq(4).html('年龄不正确噢！');
+            $('.notice').eq(4).removeClass('green');
+            $('.notice').eq(4).addClass('red')
+        }else {
+            $('.notice').eq(4).html('√');
+            $('.notice').eq(4).addClass('green');
+            $('.notice').eq(4).removeClass('red')
+        }
+    });
+    $('#stu-state').blur(function () {
+        var sState=$('#stu-state').val();
+        if (!reg.state.test(sState)){
+            $('.notice').eq(5).html('请输入正确状态！');
+            $('.notice').eq(5).removeClass('green');
+            $('.notice').eq(5).addClass('red')
+        }else {
+            $('.notice').eq(5).html('√');
+            $('.notice').eq(5).addClass('green');
+            $('.notice').eq(5).removeClass('red')
+        }
+    });
+    $('#stu-parentName').blur(function () {
+        var sParent=$('#stu-parentName').val();
+        if (!reg.parentName.test(sParent)){
+            $('.notice').eq(6).html('请输入正确姓名！');
+            $('.notice').eq(6).removeClass('green');
+            $('.notice').eq(6).addClass('red')
+        }else {
+            $('.notice').eq(6).html('√');
+            $('.notice').eq(6).addClass('green');
+            $('.notice').eq(6).removeClass('red')
+        }
+    });
+    $('#stu-relation').blur(function () {
+        var sRelation=$('#stu-relation').val();
+        if (!reg.relation.test(sRelation)){
+            $('.notice').eq(7).html('输入字符错误！');
+            $('.notice').eq(7).removeClass('green');
+            $('.notice').eq(7).addClass('red')
+        }else {
+            $('.notice').eq(7).html('√');
+            $('.notice').eq(7).addClass('green');
+            $('.notice').eq(7).removeClass('red')
+        }
+    });
+    $('#stu-tel').blur(function () {
+        var sTel=$('#stu-tel').val();
+        if (!reg.tel.test(sTel)){
+            $('.notice').eq(8).html('请输入正确电话号码！');
+            $('.notice').eq(8).removeClass('green');
+            $('.notice').eq(8).addClass('red')
+        }else {
+            $('.notice').eq(8).html('√');
+            $('.notice').eq(8).addClass('green');
+            $('.notice').eq(8).removeClass('red')
+        }
+    });
+
+
+//    $('#stu-yes1').click(function () {
+//        if('.not){
+//
+//        }
+//    })
+
+
+    //编辑正则
+    var reg={
+        num:/^0\d\d$/,
+        className:/^[0-2][0-9]级[\u4e00-\u9fa5]{2,4}班$/,
+        name: /^[\u4E00-\u9FA5A-Za-z]+$/,
+        sex:/^(男|女)$/,
+        age:/^(\d\d{0,1}|100)$/,
+        state:/^(退学|休学|在校)$/,
+        parentName:/^[\u4E00-\u9FA5A-Za-z]+$/,
+        relation:/^[\u4E00-\u9FA5A-Za-z]+$/,
+        tel:/^1[3-9]\d{9}$/,
+    };
+
+    $('#studentNum').blur(function () {
+        var sNum=$('#studentNum').val();
+        if (!reg.num.test(sNum)){
+            $('.notice2').eq(0).html('请输入正确学号');
+            $('.notice2').eq(0).removeClass('green');
+            $('.notice2').eq(0).addClass('red')
+        }else {
+            $('.notice2').eq(0).html('√');
+            $('.notice2').eq(0).addClass('green');
+            $('.notice2').eq(0).removeClass('red')
+        }
+    });
+    $('#studentClassRoom').blur(function () {
+        var sClassRoom=$('#studentClassRoom').val();
+        if (!reg.className.test(sClassRoom)){
+            $('.notice2').eq(1).html('请输入正确班级名称');
+            $('.notice2').eq(1).removeClass('green');
+            $('.notice2').eq(1).addClass('red')
+        }else {
+            $('.notice2').eq(1).html('√');
+            $('.notice2').eq(1).addClass('green');
+            $('.notice2').eq(1).removeClass('red')
+        }
+    });
+    $('#studentName').blur(function () {
+        var sName=$('#studentName').val();
+        if (!reg.name.test(sName)){
+            $('.notice2').eq(2).html('请输入正确姓名！');
+            $('.notice2').eq(2).removeClass('green');
+            $('.notice2').eq(2).addClass('red')
+        }else {
+            $('.notice2').eq(2).html('√');
+            $('.notice2').eq(2).addClass('green');
+            $('.notice2').eq(2).removeClass('red')
+        }
+    });
+    $('#studentSex').blur(function () {
+        var sSex=$('#studentSex').val();
+        if (!reg.sex.test(sSex)){
+            $('.notice2').eq(3).html('请输入正确性别！');
+            $('.notice2').eq(3).removeClass('green');
+            $('.notice2').eq(3).addClass('red')
+        }else {
+            $('.notice2').eq(3).html('√');
+            $('.notice2').eq(3).addClass('green');
+            $('.notice2').eq(3).removeClass('red')
+        }
+    });
+    $('#studentAge').blur(function () {
+        var sAge=$('#studentAge').val();
+        if (!reg.age.test(sAge)){
+            $('.notice2').eq(4).html('年龄不正确噢！');
+            $('.notice2').eq(4).removeClass('green');
+            $('.notice2').eq(4).addClass('red')
+        }else {
+            $('.notice2').eq(4).html('√');
+            $('.notice2').eq(4).addClass('green');
+            $('.notice2').eq(4).removeClass('red')
+        }
+    });
+    $('#studentState').blur(function () {
+        var sState=$('#studentState').val();
+        if (!reg.state.test(sState)){
+            $('.notice2').eq(5).html('请输入正确状态！');
+            $('.notice2').eq(5).removeClass('green');
+            $('.notice2').eq(5).addClass('red')
+        }else {
+            $('.notice2').eq(5).html('√');
+            $('.notice2').eq(5).addClass('green');
+            $('.notice2').eq(5).removeClass('red')
+        }
+    });
+    $('#studentParent').blur(function () {
+        var sParent=$('#studentParent').val();
+        if (!reg.parentName.test(sParent)){
+            $('.notice2').eq(6).html('请输入正确姓名！');
+            $('.notice2').eq(6).removeClass('green');
+            $('.notice2').eq(6).addClass('red')
+        }else {
+            $('.notice2').eq(6).html('√');
+            $('.notice2').eq(6).addClass('green');
+            $('.notice2').eq(6).removeClass('red')
+        }
+    });
+    $('#studentRelation').blur(function () {
+        var sRelation=$('#studentRelation').val();
+        if (!reg.relation.test(sRelation)){
+            $('.notice2').eq(7).html('输入字符错误！');
+            $('.notice2').eq(7).removeClass('green');
+            $('.notice2').eq(7).addClass('red')
+        }else {
+            $('.notice2').eq(7).html('√');
+            $('.notice2').eq(7).addClass('green');
+            $('.notice2').eq(7).removeClass('red')
+        }
+    });
+    $('#studentTel').blur(function () {
+        var sTel=$('#studentTel').val();
+        if (!reg.tel.test(sTel)){
+            $('.notice2').eq(8).html('请输入正确电话号码！');
+            $('.notice2').eq(8).removeClass('green');
+            $('.notice2').eq(8).addClass('red')
+        }else {
+            $('.notice2').eq(8).html('√');
+            $('.notice2').eq(8).addClass('green');
+            $('.notice2').eq(8).removeClass('red')
+        }
+    });
+
+
+
+
+</script>
+</html>

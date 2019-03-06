@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+    margin:0;
+    padding:0;
+}
+.banner {
+    padding-top:80px;
+}
+.banner .swiper {
+    width:1140px;
+    height: 360px;
+    margin:0 auto;
+    position:relative;
+}
+.current-swiper {
+    width:650px;
+    height:370px;
+    border-radius:10px;
+    margin:0 auto;
+    box-shadow:0 0 20px rgba(0,0,0,0.05);
+    position:relative;
+    z-index:99;
+}
+.left-swiper {
+    position:absolute;
+    left:117px;
+    top:52px;
+    z-index:1;
+}
+.right-swiper {
+    position:absolute;
+    right:117px;
+    left:auto;
+    top:52px;
+    z-index:1;
+}
+.nocurrent-swiper {
+    width:479px;
+    height:273px;
+    border-radius:8px;
+    box-shadow:0 0 20px rgba(0,0,0,0.05);
+}
+.slide1 {
+    background:url(../images/photowall/23.jpg);
+}
+.slide2 {
+    background:url(../images/photowall/24.jpg);
+}
+.slide3 {
+    background:url(../images/photowall/26.jpg);
+}
+.slide4 {
+    background:url(../images/photowall/a.jpg);
+}
+.slide5 {
+    background:url(../images/photowall/b.jpg);
+}
+.slide6 {
+    background:url(../images/photowall/d.jpg);
+}
+.slide7 {
+    background:url(../images/photowall/27.jpg);
+}
+.slide8 {
+    background:url(../images/photowall/6.jpg);
+}
+.swiper-button-prev {
+    width:46px;
+    height:46px;
+    background:url(../images/curr_prev.png) no-repeat center center;
+}
+.swiper-button-next {
+    width:46px;
+    height:46px;
+
+    background-size:auto;
+    background-image:url(../images/curr_next.png);
+}

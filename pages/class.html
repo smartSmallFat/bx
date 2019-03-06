@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <link rel="stylesheet" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../font/font_887589_std16to2x1n/iconfont.css">
+    <script src="../dist/jquery-3.3.1.js"></script>
+    <script src="../dist/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #class-box{
+            width: 1140px;
+            height: 600px;
+            background: #e0f5ea;
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        h2{
+            text-align: center;
+            color: #4B4B4B;
+            font-family: '幼圆';
+            font-weight: bold;
+        }
+        th{
+            height: 52px;
+            text-align: center;
+            font-size: 18px;
+            color: #5d5d5d;
+        }
+        td{
+            text-align: center;
+            height:42px;
+            font-size: 17px;
+            color: #4c4c4c;
+        }
+        header{
+            border-bottom: 1px solid #6e6e6e;
+        }
+        .iconfont{
+            font-size: 18px;
+        }
+        .iconfont{
+            cursor:pointer ;
+        }
+        #pageBox ul{
+            width: 400px;
+            height: 36px;
+            /*background: darkgrey;*/
+            position: absolute;
+            right: 58px;
+            bottom: 8px;
+        }
+        #pageBox ul li{
+            width: 54px;
+            height: 28px;
+            float: left;
+            font-size: 17px;
+            font-family: '微软雅黑';
+            text-align: center;
+            border: 1px solid #98aabb;
+            background: #f4f7f8;
+        }
+        #pageBox ul li:hover{
+            background: rgba(207, 255, 225, 0.4);
+            cursor: pointer;
+        }
+
+        #prepage,#nextpage{
+            font-size: 19px;
+            color: #404040;
+        }
+        .createClassBtn{
+            margin-top: 20px;
+        }
+       /*以上部分为公用，无需修改*/
+
+        #class-top{
+            height: 80px;
+            border-bottom: 1px solid #6e6e6e;
+        }
+        #class-top-left{
+            float: left;
+            width: 540px;
+            height: 80px;
+        }
+        #class-top-right{
+            float: right;
+            margin-right: 60px;
+
+        }
+        #class-tipTxt{
+            float: left;
+            line-height: 80px;
+            font-size: 18px;
+            margin-left: 48px;
+        }
+        #class-input-group{
+            margin-top: 22px;
+        }
+        #class-table-box{
+            width: 1100px;
+            margin: 40px auto;
+            /*border: 1px solid #6e6e6e;*/
+        }
+
+        /*字体图标颜色*/
+        .delete{
+            color: #e80000;
+        }
+        .edit{
+            color: #346fac;
+        }
+        .graduate{
+            color: #0f0f0f;
+        }
+        .upgrade{
+            color: #175bdc
+        }
+        .details{
+            color: #38c6b6;
+        }
+
+        /*新增弹框的样式*/
+        .modal-body .form-group{
+            width: 480px;
+        }
+        .modal-body .p-body{
+            width: 90px;
+            font-size: 17px;
+            float: left;
+            margin-left: 40px;
+        }
+        .modal-body input{
+            width: 120px;
+            height: 26px;
+            float: left;
+            margin-left: 22px;
+        }
+        .modal-body .notice{
+            font-size: 12px;
+            line-height: 28px;
+            margin-left: 6px;
+        }
+        .modal-button{
+            font-size: 15px;
+            width: 66px;
+            float: left;
+            margin-left: 20px;
+        }
+        .modal-button-box{
+            width: 180px;
+            margin-left: 260px;
+        }
+        .chooseBtn{
+            line-height: 1px;
+            margin-left: 24px;
+            width: 200px;
+            height: 26px;
+        }
+        .modal-lg{
+            width: 488px;
+        }
+        .chooseTeacherBox{
+            width: 420px;
+            height: 35px;
+        }
+        .chooseTeacherBox ul{
+            margin-left: 155px;
+            width: 200px;
+        }
+        .modal-title{
+            text-align: center;
+            font-size: 20px;
+        }
+        .modal-footer .modal-button{
+            font-size: 15px;
+            width: 66px;
+            float: left;
+            margin-left: 282px;
+        }
+
+
+        /*查看详情弹框样式*/
+        #details .modal-body span{
+            margin-left: 58px;
+        }
+
+        /*删除弹框的样式*/
+        #delete{
+            color: #4a4a4a;
+            font-size: 17px;
+            text-align: center;
+            margin-top: 140px;
+        }
+
+        /*编辑弹框的样式*/
+        #edit .modal-body input{
+            width:200px;
+            height: 24px;
+            margin-left: 30px;
+        }
+
+        #upgrade {
+            margin-top: 120px;
+        }
+        #graduate{
+            margin-top: 120px;
+        }
+        /*正则部分的样式*/
+        .notPass{
+            color: red;
+            font-size: 12px;
+        }
+        .pass{
+           color: #1d804a;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id="class-box">
+        <!--顶部(四字标题部分)-->
+          <header>
+              <h2>班级管理</h2>
+          </header>
+
+        <!--中间部分(查询+新建)-->
+          <section id="class-top">
+
+              <div id="class-top-left">
+
+                  <div id="class-tipTxt">查询班级：</div>
+
+                  <div class="input-group" id="class-input-group">
+
+                      <div class="input-group-btn">
+                          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                              按班级名称查询
+                              <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" >
+                              <li><a href="#">按班级级别查询</a></li>
+                              <li><a href="#">按主班老师查询</a></li>
+                          </ul>
+                      </div>
+                      <input type="text" class="form-control" id="keyWord" placeholder="请输入关键字">
+                      <div class="input-group-btn">
+                          <button class="btn btn-default" id="searchBtn">搜索</button>
+                      </div>
+                  </div>
+              </div>
+
+
+              <div  id="class-top-right">
+                  <!--新建班级按钮-->
+                  <button class="btn btn-default createClassBtn"  type="button"  data-toggle="modal" data-target="#createClass">
+                      <i class="iconfont">&#xe61f;</i>
+                      <span>新建班级</span>
+                  </button>
+
+                  <!--新建班级弹出的模态框-->
+                  <div class="modal fade" id="createClass">
+                      <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">
+                                      <span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">创建班级</h4>
+                              </div>
+                              <!--中间部分-->
+                              <div class="modal-body">
+                                  <div class="form-inline clearfix form-group"><p class="p-body">班级编号*</p><input type="text" id="classId" class="form-control add" placeholder="001开始"><span class="notice"></span></div>
+                                  <div class="form-inline clearfix form-group"><p class="p-body">班级名称*</p><input type="text" id="className" class="form-control add" placeholder="格式：16级小面包班"><span class="notice"></span></div>
+                                  <div class="form-inline clearfix form-group"><p class="p-body">班级人数*</p><input type="text" id="classTotal" class="form-control add" placeholder="格式：32人"><span  class="notice"></span></div>
+                                  <!--班级级别-->
+                                  <div class="form-group form-inline clearfix">
+                                      <span class="p-body">班级级别*</span>
+                                      <div class="dropdown chooseTeacherBox">
+                                          <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                              请选择班级级别
+                                              <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu" id="classLevel">
+                                              <li style="text-align: center"><a href="#">小班</a></li>
+                                              <li style="text-align: center"><a href="#">中班</a></li>
+                                              <li style="text-align: center"><a href="#">大班</a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <!--班级状态-->
+                                  <div class="form-group form-inline clearfix">
+                                      <span class="p-body">班级状态*</span>
+                                      <div class="dropdown chooseTeacherBox">
+                                          <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                                              请选择班级状态
+                                              <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu" id="classState">
+                                              <li style="text-align: center"><a href="javascript:;">在读</a></li>
+                                              <li class="disabled" style="text-align: center"><a href="javascript:;">毕业</a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <!--主班老师-->
+                                  <div class="form-group form-inline clearfix">
+                                      <span class="p-body">主班老师*</span>
+                                      <div class="dropdown chooseTeacherBox">
+                                          <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu3" data-toggle="dropdown">
+                                              请选择主班老师
+                                              <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu" id="mainTeacher">
+                                              <li  style="text-align: center"><a href="javascript:;">胡小倩</a></li>
+                                              <li  style="text-align: center"><a href="javascript:;">冯瘦瘦</a></li>
+                                              <li  style="text-align: center"><a href="javascript:;">刘小瘦</a></li>
+                                              <li  style="text-align: center"><a href="javascript:;">徐胖胖</a></li>
+                                              <li  style="text-align: center"><a href="javascript:;">罗小胖</a></li>
+                                              <li  style="text-align: center"><a href="javascript:;">冯叔叔</a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <!--副班老师-->
+                                  <div class="form-group form-inline clearfix">
+                                      <span class="p-body">副班老师*</span>
+                                      <div class="dropdown chooseTeacherBox">
+                                          <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu4" data-toggle="dropdown">
+                                              请选择副班老师
+                                              <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu" id="viceTeacher">
+                                              <li  style="text-align: center"><a href="#">茜茜</a></li>
+                                              <li  style="text-align: center"><a href="#">猪猪</a></li>
+                                              <li  style="text-align: center"><a href="#">瘦瘦</a></li>
+                                              <li  style="text-align: center"><a href="#">胖胖</a></li>
+                                              <li  style="text-align: center"><a href="#">嘻嘻</a></li>
+                                              <li  style="text-align: center"><a href="#">叔叔</a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary modal-button yes" data-dismiss="modal"  id="ensureCreateClass">确定</button>
+                                  <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button>
+                              </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+          </section>
+
+        <!--表格部分-->
+        <div id="class-table-box">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>班级编号</th><th>班级名称</th><th>班级级别</th><th>班级人数</th><th>班级状态</th><th>主班老师</th><th>查看详情</th><th>升班</th><th>毕业</th><th>编辑</th><th>删除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr>-->
+                        <!--<td>001</td>-->
+                        <!--<td>16级小面包班</td><td>大班</td><td>32人</td><td>在读</td><td>胡小倩</td>-->
+                        <!--<td><i class="iconfont details" data-toggle="modal" data-target="#details">&#xe612;</i></td>-->
+                        <!--<td><i class="iconfont upgrade">&#xe653;</i></td>-->
+                        <!--<td><i class="iconfont graduate">&#xe610;</i></td>-->
+                        <!--<td><i class="iconfont edit"  data-toggle="modal" data-target="#edit">&#xe696;</i></td>-->
+                        <!--<td><i class="iconfont delete"  data-toggle="modal" data-target="#delete">&#xe662;</i></td>-->
+                    <!--</tr>-->
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+
+
+        <!--查看详情弹出的模态框-->
+        <div class="modal fade" id="details">
+            <!--<div class="modal-dialog modal-lg">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<button type="button" class="close" data-dismiss="modal">-->
+                            <!--<span aria-hidden="true">&times;</span>-->
+                        <!--</button>-->
+                        <!--<h3 class="modal-title">详细信息</h3>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--<p class="form-inline clearfix"><p class="p-body">班级编号:</p><span></span></p>-->
+                        <!--<p class="form-inline clearfix"><p class="p-body">班级名称:</p><span></span></p>-->
+                        <!--<p class="form-inline clearfix"><p class="p-body">班级人数:</p><span></span></p>-->
+                        <!--<p class="form-inline clearfix"><p class="p-body">班级级别:</p><span></span></p>-->
+                        <!--<p class="form-inline clearfix"><p class="p-body">班级状态:</p><span></span></p>-->
+                        <!--<p class="form-inline clearfix"><p class="p-body">主班老师:</p><span></span></p>-->
+                        <!--<p class="form-inline clearfix"><p class="p-body">副班老师:</p><span></span></p>-->
+
+                        <!--<div style="height: 40px"></div>-->
+                        <!--<p class="clearfix modal-button-box">-->
+                            <!--<button type="button" class="btn btn-primary modal-button" data-dismiss="modal">确定</button>-->
+                            <!--<button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button>-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+        <!--编辑弹出的模态框-->
+        <div class="modal fade" id="edit">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3 class="modal-title">编辑信息</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-inline clearfix form-group"><p class="p-body">班级编号*</p><input type="text" id="editClassId" class="form-control add" value="${classArr[index].classId}" disabled placeholder="001开始"><span class="notice2"></span></div>
+                        <div class="form-inline clearfix form-group"><p class="p-body">班级名称*</p><input type="text" id="editClassName" class="form-control add" value="${classArr[index].className}" placeholder="格式：16级小面包班"><span class="notice2"></span></div>
+                        <div class="form-inline clearfix form-group"><p class="p-body">班级人数*</p><input type="text" id="editClassTotal" class="form-control add" value="${classArr[index].classTotal}" placeholder="格式：32人"><span  class="notice2"></span></div>
+
+                        <div class="form-group form-inline clearfix">
+                            <span class="p-body">班级级别*</span>
+                            <div class="dropdown chooseTeacherBox">
+                                <button class="btn btn-default dropdown-toggle chooseBtn" disabled type="button" id="dropdownMenu01" data-toggle="dropdown">
+                                    <!--${classArr[index].classLevel}-->
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="editClassLevel">
+                                    <li style="text-align: center"><a href="#">小班</a></li>
+                                    <li style="text-align: center"><a href="#">中班</a></li>
+                                    <li style="text-align: center"><a href="#">大班</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline clearfix">
+                            <span class="p-body">班级状态*</span>
+                            <div class="dropdown chooseTeacherBox">
+                                <button class="btn btn-default dropdown-toggle chooseBtn" disabled type="button" id="dropdownMenu02" data-toggle="dropdown">
+                                    <!--${classArr[index].classState}-->
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="editClassState">
+                                    <li style="text-align: center"><a href="javascript:;">在读</a></li>
+                                    <li style="text-align: center"><a href="javascript:;">毕业</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline clearfix">
+                            <span class="p-body">主班老师*</span>
+                            <div class="dropdown chooseTeacherBox">
+                                <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu03" data-toggle="dropdown">
+                                    <!--${classArr[index].mainTeacher}-->
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="editMainTeacher">
+                                    <li  style="text-align: center"><a href="javascript:;">胡小倩</a></li>
+                                    <li  style="text-align: center"><a href="javascript:;">冯瘦瘦</a></li>
+                                    <li  style="text-align: center"><a href="javascript:;">刘小瘦</a></li>
+                                    <li  style="text-align: center"><a href="javascript:;">徐胖胖</a></li>
+                                    <li  style="text-align: center"><a href="javascript:;">罗小胖</a></li>
+                                    <li  style="text-align: center"><a href="javascript:;">冯叔叔</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline clearfix">
+                            <span class="p-body">副班老师*</span>
+                            <div class="dropdown chooseTeacherBox">
+                                <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu04" data-toggle="dropdown">
+                                    <!--${classArr[index].viceTeacher}-->
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="editViceTeacher">
+                                    <li  style="text-align: center"><a href="#">茜茜</a></li>
+                                    <li  style="text-align: center"><a href="#">猪猪</a></li>
+                                    <li  style="text-align: center"><a href="#">瘦瘦</a></li>
+                                    <li  style="text-align: center"><a href="#">胖胖</a></li>
+                                    <li  style="text-align: center"><a href="#">嘻嘻</a></li>
+                                    <li  style="text-align: center"><a href="#">叔叔</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary yes" data-dismiss="modal" id="ensureEdit">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+
+                </div>
+            </div>`
+        </div>
+
+        <!--删除弹框-->
+        <div class="modal " id="delete" data-index="">
+            <div class="modal-dialog modal-sm ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button"  class="close" data-dismiss="modal" >
+                            <span >&times;</span>
+                        </button>
+                        <h4 class="modal-title">删除</h4>
+                    </div>
+                    <div class="modal-body">
+                        你确定要删除吗?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary yes" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--升班弹框-->
+        <div class="modal " id="upgrade" data-index="">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button"  class="close" data-dismiss="modal" >
+                            <span >&times;</span>
+                        </button>
+                        <h4 class="modal-title">升班</h4>
+                    </div>
+                    <div class="modal-body">
+                        你确定要对该班进行升班操作吗?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary yes" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--毕业弹框-->
+        <div class="modal " id="graduate" data-index="">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button"  class="close" data-dismiss="modal" >
+                            <span >&times;</span>
+                        </button>
+                        <h4 class="modal-title">毕业</h4>
+                    </div>
+                    <div class="modal-body">
+                        你确定要对该班进行毕业操作吗?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary yes" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--分页部分-->
+        <div id="pageBox">
+            <ul>
+                <li>首页</li>
+                <li><i class="iconfont" id="prepage"><<</i></li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li><i class="iconfont" id="nextpage">>></i></li>
+                <li>尾页</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+
+
+<script>
+    $(function () {
+
+        /*把数据存入到数组中*/
+        var classArr = [
+            {
+                classId: '001',
+                className: '16级小面包班',
+                classLevel: '大班',
+                classTotal: '32人',
+                classState: '在读',
+                mainTeacher: '胡小倩',
+                viceTeacher: '茜茜'
+            },
+            {
+                classId: '002',
+                className: '16级小太阳班',
+                classLevel: '大班',
+                classTotal: '28人',
+                classState: '在读',
+                mainTeacher: '刘小瘦',
+                viceTeacher: '小刘'
+            },
+            {
+                classId: '003',
+                className: '17级小菊花班',
+                classLevel: '中班',
+                classTotal: '30人',
+                classState: '在读',
+                mainTeacher: '冯瘦瘦',
+                viceTeacher: '大瘦'
+            },
+            {
+                classId: '004',
+                className: '17级向日葵班',
+                classLevel: '中班',
+                classTotal: '33人',
+                classState: '在读',
+                mainTeacher: '徐胖胖',
+                viceTeacher: '小胖'
+            },
+            {
+                classId: '005',
+                className: '18级小芒果班',
+                classLevel: '小班',
+                classTotal: '26人',
+                classState: '在读',
+                mainTeacher: '罗小胖',
+                viceTeacher: '乐乐'
+            },
+            {
+                classId: '006',
+                className: '16级小馒头班',
+                classLevel: '小班',
+                classTotal: '29人',
+                classState: '在读',
+                mainTeacher: '冯叔叔',
+                viceTeacher: '大叔'
+            },
+        ];
+
+
+        /* 初始化数据*/
+        function init() {
+            //初始化tbody的数据为空
+            $('tbody').html('');
+            //循环将数据插入到列表
+            $.each(classArr, function (i, v, e) {
+//                   console.log(i,v);
+                // {classId: 1, className: "16级小面包班", classLevel: "大班", classTotal: "32人", classState: "在读", …}
+                $('tbody').append(`<tr data-index="${i}">
+                                        <td>${v.classId}</td>
+                                        <td>${v.className}</td>
+                                        <td>${v.classLevel}</td>
+                                        <td>${v.classTotal}</td>
+                                        <td>${v.classState}</td>
+                                        <td>${v.mainTeacher}</td>
+                                        <td><i class="iconfont details" data-toggle="modal" data-target="#details">&#xe612;</i></td>
+                                        <td><i class="iconfont upgrade" data-toggle="modal" data-target="#upgrade" data-index="${i}">&#xe653;</i></td>
+                                        <td><i class="iconfont graduate" data-toggle="modal" data-target="#graduate" data-index="${i}">&#xe610;</i></td>
+                                        <td><i class="iconfont edit"  data-toggle="modal" data-target="#edit" data-index="${i}">&#xe696;</i></td>
+                                        <td><i class="iconfont delete"  data-toggle="modal" data-target="#delete" data-index="${i}">&#xe662;</i></td>
+                                    </tr>`)
+            });
+        }
+
+        init();
+
+
+        /*正则验证部分*/
+        var reg = {
+            classId:/^0\d\d$/,
+            className:/^[0-2][0-9]级[\u4e00-\u9fa5]{2,4}班$/,
+            classTotal:/^[0-9]{1,2}人$/,
+        }
+
+        /*班级编号的验证*/
+        $('#classId').blur(function () {
+            var sClassId = $('#classId').val();
+            if(!reg.classId.test(sClassId)){
+                $('.notice').eq(0).html('请输入正确的格式！');
+                $('.notice').eq(0).removeClass('pass');
+                $('.notice').eq(0).addClass('notPass');
+            }else{
+                $('.notice').eq(0).html('✔');
+                $('.notice').eq(0).removeClass('notPass');
+                $('.notice').eq(0).addClass('pass');
+            }
+        })
+        /*班级名称的验证*/
+        $('#className').blur(function () {
+            var sClassName = $('#className').val();
+            if(!reg.className.test(sClassName)){
+                $('.notice').eq(1).html('请输入正确的格式！');
+                $('.notice').eq(1).removeClass('pass');
+                $('.notice').eq(1).addClass('notPass');
+            }else{
+                $('.notice').eq(1).html('✔');
+                $('.notice').eq(1).removeClass('notPass');
+                $('.notice').eq(1).addClass('pass');
+            }
+        })
+        /*班级人数的验证*/
+        $('#classTotal').blur(function () {
+            var sClassTotal = $('#classTotal').val();
+            if(!reg.classTotal.test(sClassTotal)){
+                $('.notice').eq(2).html('请输入正确的格式！');
+                $('.notice').eq(2).removeClass('pass');
+                $('.notice').eq(2).addClass('notPass');
+            }else{
+                $('.notice').eq(2).html('✔');
+                $('.notice').eq(2).removeClass('notPass');
+                $('.notice').eq(2).addClass('pass');
+            }
+        })
+
+        /*编辑时班级名称的验证*/
+        $('#editClassName').blur(function () {
+            var sClassName = $('#editClassName').val();
+            if(!reg.className.test(sClassName)){
+                $('.notice2').eq(1).html('请输入正确的格式！');
+                $('.notice2').eq(1).removeClass('pass');
+                $('.notice2').eq(1).addClass('notPass');
+            }else{
+                $('.notice2').eq(1).html('✔');
+                $('.notice2').eq(1).removeClass('notPass');
+                $('.notice2').eq(1).addClass('pass');
+            }
+        })
+        /*编辑时班级人数的验证*/
+        $('#editClassTotal').blur(function () {
+            var sClassTotal = $('#editClassTotal').val();
+            if(!reg.classTotal.test(sClassTotal)){
+                $('.notice2').eq(2).html('请输入正确的格式！');
+                $('.notice2').eq(2).removeClass('pass');
+                $('.notice2').eq(2).addClass('notPass');
+            }else{
+                $('.notice2').eq(2).html('✔');
+                $('.notice2').eq(2).removeClass('notPass');
+                $('.notice2').eq(2).addClass('pass');
+            }
+        })
+
+
+           /*班级级别下拉框的js*/
+            $('#classLevel').on('click','li',function () {
+                var sClassLevel = $(this).text();
+                $('#dropdownMenu1').text(sClassLevel);
+            })
+            /*班级状态下拉框的js*/
+            $('#classState').on('click','li',function () {
+                var sClassState = $(this).text();
+                $('#dropdownMenu2').text(sClassState);
+            })
+            /*主班老师的下拉框js*/
+            $('#mainTeacher').on('click','li',function () {
+                var sMainTeacher = $(this).text();
+                $('#dropdownMenu3').text(sMainTeacher);
+            })
+            /*副班老师的下拉框js*/
+            $('#viceTeacher').on('click','li',function () {
+                var sViceTeacher = $(this).text();
+                $('#dropdownMenu4').text(sViceTeacher);
+            })
+
+            /*编辑中班级级别下拉框的js*/
+            $('#editClassLevel').on('click','li',function () {
+                var newClassLevel = $(this).text();
+                $('#dropdownMenu01').text(newClassLevel);
+            })
+            /*编辑中班级状态下拉框的js*/
+            $('#editClassState').on('click','li',function () {
+                var newClassState = $(this).text();
+                $('#dropdownMenu02').text(newClassState);
+            })
+            /*编辑中主班老师的下拉框js*/
+            $('#editMainTeacher').on('click','li',function () {
+                var newMainTeacher = $(this).text();
+                $('#dropdownMenu03').text(newMainTeacher);
+            })
+            /*编辑中副班老师的下拉框js*/
+            $('#editViceTeacher').on('click','li',function () {
+                var newViceTeacher = $(this).text();
+                $('#dropdownMenu04').text(newViceTeacher);
+            })
+
+
+
+        /*添加*/
+        $('#ensureCreateClass').click(function () {
+
+            var n = 0;
+            $.each($('.notice'),function () {
+                if($(this).html()=='✔'){
+                    n++;
+                }
+            })
+            if(n==3){
+                var sClassId = $('#classId').val();
+                var sClassName = $('#className').val();
+                var sClassTotal = $('#classTotal').val();
+
+                var sClassLevel = $('#dropdownMenu1').text();
+                var sClassState = $('#dropdownMenu2').text();
+                var sMainTeacher =$('#dropdownMenu3').text();
+                var sViceTeacher = $('#dropdownMenu4').text();
+
+                classArr.push(
+                    {
+                        classId: sClassId,
+                        className: sClassName,
+                        classLevel: sClassLevel,
+                        classTotal: sClassTotal,
+                        classState: sClassState ,
+                        mainTeacher: sMainTeacher ,
+                        viceTeacher: sViceTeacher
+                    }
+                );
+                $('#classId').val('');
+                $('#className').val('');
+                $('#dropdownMenu1').text('请选择班级级别');
+                $('#classTotal').val('');
+                $('#dropdownMenu2').text('请选择班级状态');
+                $('#dropdownMenu3').text('请选择主班老师');
+                $('#dropdownMenu4').text('请选择副班老师');
+
+                init();
+            }else{
+                return false;   //正则验证不通过，不允许新建班级
+            }
+
+        });
+
+
+        /*查看*/
+        $('tbody').on('click', '.details', function () {
+            var index = $(this).parents('tr').attr('data-index');
+            $('#details').html('').append(`<div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title">详细信息</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p class="form-inline clearfix"><p class="p-body">班级编号:</p><span>${classArr[index].classId}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">班级名称:</p><span>${classArr[index].className}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">班级人数:</p><span>${classArr[index].classTotal}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">班级级别:</p><span>${classArr[index].classLevel}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">班级状态:</p><span>${classArr[index].classState}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">主班老师:</p><span>${classArr[index].mainTeacher}</span></p>
+                            <p class="form-inline clearfix"><p class="p-body">副班老师:</p><span>${classArr[index].viceTeacher}</span></p>
+
+                            <div style="height: 40px"></div>
+                            <p class="modal-footer clearfix">
+                                <button type="button" class="btn btn-primary modal-button" data-dismiss="modal">确定</button>
+                                <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>`);
+        });
+
+
+        /*查询*/
+//        $('#searchBtn').click(function () {
+//            var str = $('#keyWord').val();
+//            var searchResult = [];
+//            $(classArr).each(function (i,v) {
+//                if (v.className.indexOf(str) != -1) {
+//                    searchResult.push(v)
+//                }
+//            });
+//            console.log(searchResult);
+//        })
+        $('#searchBtn').click(function () {
+            $('tbody tr').hide().filter(":contains('" +($('#keyWord').val()) + "')").show();
+        })
+
+        /*点击删除图标弹出的模态框*/
+        $('#delete').on('show.bs.modal', function (e) {
+            $(this).attr('data-index', $(e.relatedTarget).attr('data-index'));
+        })
+        /*删除*/
+        $('#delete').on('click', '.yes', function (e) {
+
+
+            var n = $('#delete').attr('data-index');
+            if(classArr[n].classTotal=='0人'){
+                $('tr[data-index='+n+']').remove();    //删除此条记录
+                classArr.splice(n, 1);           //从数组中删除此条记录
+                init();
+            }else{
+                confirm('该班人数不为空，不允许直接删除！')
+            }
+
+
+        });
+
+
+        /*点击升班图标弹出的模态框*/
+        $('#upgrade').on('show.bs.modal', function (e) {
+            $(this).attr('data-index', $(e.relatedTarget).attr('data-index'));
+        })
+        /*升班*/
+        $('#upgrade').on('click','.yes',function () {
+            var index = $('#upgrade').attr('data-index');
+            var classLevel = classArr[index].classLevel;
+            switch (classLevel){
+                case '小班':
+                    classArr[index].classLevel = '中班';
+                    init();
+                    break;
+                case '中班':
+                    classArr[index].classLevel = '大班';
+                    init();
+                    break;
+                default:
+                    alert('不能对该班进行升班操作!')
+            }
+        })
+
+        /*点击毕业图标弹出的模态框*/
+        $('#graduate').on('show.bs.modal', function (e) {
+            $(this).attr('data-index', $(e.relatedTarget).attr('data-index'));
+        })
+        /*毕业*/
+        $('#graduate').on('click','.yes',function () {
+            var index = $('#graduate').attr('data-index');
+            var classState = classArr[index].classState;
+            var classLevel = classArr[index].classLevel;
+            switch (classLevel){
+                case '大班':
+                    classArr[index].classLevel = ' ';
+                    classArr[index].classState = '毕业';
+                    init();
+                    break;
+                default:
+                    alert('不能对该班进行毕业操作!')
+            }
+        })
+
+        var index;
+        /*编辑*/
+        $('tbody').on('click','.edit',function () {
+             index= $(this).parents('tr').attr('data-index');
+             //编辑弹框显示当前数据
+//            $('#edit').html('').append(`<div class="modal-dialog modal-lg">
+//                <div class="modal-content">
+//                    <div class="modal-header">
+//                        <button type="button" class="close" data-dismiss="modal">
+//                            <span aria-hidden="true">&times;</span>
+//                        </button>
+//                        <h3 class="modal-title">编辑信息</h3>
+//                    </div>
+//                    <div class="modal-body">
+//                        <div class="form-inline clearfix form-group"><p class="p-body">班级编号*</p><input type="text" id="editClassId" class="form-control add" value="${classArr[index].classId}" readonly placeholder="001开始"><span class="notice"></span></div>
+//                        <div class="form-inline clearfix form-group"><p class="p-body">班级名称*</p><input type="text" id="editClassName" class="form-control add" value="${classArr[index].className}" placeholder="格式：16级小面包班"><span class="notice"></span></div>
+//                        <div class="form-inline clearfix form-group"><p class="p-body">班级人数*</p><input type="text" id="editClassTotal" class="form-control add" value="${classArr[index].classTotal}" placeholder="格式：32人"><span  class="notice"></span></div>
+//
+//                        <div class="form-group form-inline clearfix">
+//                            <span class="p-body">班级级别*</span>
+//                            <div class="dropdown chooseTeacherBox">
+//                                <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu01" data-toggle="dropdown">
+//                                    ${classArr[index].classLevel}
+//                                    <span class="caret"></span>
+//                                </button>
+//                                <ul class="dropdown-menu" id="editClassLevel">
+//                                    <li style="text-align: center"><a href="#">小班</a></li>
+//                                    <li style="text-align: center"><a href="#">中班</a></li>
+//                                    <li style="text-align: center"><a href="#">大班</a></li>
+//                                </ul>
+//                            </div>
+//                        </div>
+//
+//                        <div class="form-group form-inline clearfix">
+//                            <span class="p-body">班级状态*</span>
+//                            <div class="dropdown chooseTeacherBox">
+//                                <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu02" data-toggle="dropdown">
+//                                    ${classArr[index].classState}
+//                                    <span class="caret"></span>
+//                                </button>
+//                                <ul class="dropdown-menu" id="editClassState">
+//                                    <li style="text-align: center"><a href="javascript:;">在读</a></li>
+//                                    <li style="text-align: center"><a href="javascript:;">毕业</a></li>
+//                                </ul>
+//                            </div>
+//                        </div>
+//
+//                        <div class="form-group form-inline clearfix">
+//                            <span class="p-body">主班老师*</span>
+//                            <div class="dropdown chooseTeacherBox">
+//                                <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu03" data-toggle="dropdown">
+//                                    ${classArr[index].mainTeacher}
+//                                    <span class="caret"></span>
+//                                </button>
+//                                <ul class="dropdown-menu" id="editMainTeacher">
+//                                    <li  style="text-align: center"><a href="javascript:;">胡小倩</a></li>
+//                                    <li  style="text-align: center"><a href="javascript:;">刘小瘦</a></li>
+//                                    <li  style="text-align: center"><a href="javascript:;">冯瘦瘦</a></li>
+//                                    <li  style="text-align: center"><a href="javascript:;">徐胖胖</a></li>
+//                                    <li  style="text-align: center"><a href="javascript:;">罗小胖</a></li>
+//                                    <li  style="text-align: center"><a href="javascript:;">冯叔叔</a></li>
+//                                </ul>
+//                            </div>
+//                        </div>
+//
+//                        <div class="form-group form-inline clearfix">
+//                            <span class="p-body">副班老师*</span>
+//                            <div class="dropdown chooseTeacherBox">
+//                                <button class="btn btn-default dropdown-toggle chooseBtn" type="button" id="dropdownMenu04" data-toggle="dropdown">
+//                                    ${classArr[index].viceTeacher}
+//                                    <span class="caret"></span>
+//                                </button>
+//                                <ul class="dropdown-menu" id="editViceTeacher">
+//                                    <li  style="text-align: center"><a href="#">胡小倩</a></li>
+//                                    <li  style="text-align: center"><a href="#">刘小瘦</a></li>
+//                                    <li  style="text-align: center"><a href="#">冯瘦瘦</a></li>
+//                                    <li  style="text-align: center"><a href="#">徐胖胖</a></li>
+//                                    <li  style="text-align: center"><a href="#">罗小胖</a></li>
+//                                    <li  style="text-align: center"><a href="#">冯叔叔</a></li>
+//                                </ul>
+//                            </div>
+//                        </div>
+//                </div>
+//                <div class="modal-footer">
+//                        <button type="button" class="btn btn-primary yes" data-dismiss="modal" id="ensureEdit">确定</button>
+//                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+//                    </div>
+//            </div>
+//            </div>`);
+            //修改
+
+            $('#editClassId').val(classArr[index].classId);
+            $('#editClassName').val(classArr[index].className);
+            $('#editClassTotal').val(classArr[index].classTotal);
+            $('#dropdownMenu01').text(classArr[index].classLevel);
+            $('#dropdownMenu02').text(classArr[index].classState);
+            $('#dropdownMenu03').text(classArr[index].mainTeacher);
+            $('#dropdownMenu04').text(classArr[index].viceTeacher);
+
+
+            $('#ensureEdit').click(function () {
+
+                var n = 0;
+                $.each($('.notice2'),function () {
+                    if($(this).html()=='请输入正确的格式！'){
+                        n++;
+                    }
+                })
+
+                if(n==0){
+                    var newClassId = $('#editClassId').val();
+                    var newClassName = $('#editClassName').val();
+                    var newClassTotal = $('#editClassTotal').val();
+
+                    var newClassLevel = $('#dropdownMenu01').text();
+                    var newClassState = $('#dropdownMenu02').text();
+                    var newMainTeacher =$('#dropdownMenu03').text();
+                    var newViceTeacher = $('#dropdownMenu04').text();
+
+                    //console.log(index,newClassId,newClassName,newClassTotal,newClassLevel,newClassState,newMainTeacher,newViceTeacher);
+                    //console.log(classArr[index]);
+                    //{classId: "001", className: "16级小面包班", classLevel: "大班", classTotal: "32人", classState: "在读", …}
+
+                    classArr[index]={
+                        classId:newClassId,
+                        className:newClassName,
+                        classLevel:newClassLevel,
+                        classState:newClassState,
+                        classTotal:newClassTotal,
+                        mainTeacher:newMainTeacher,
+                        viceTeacher:newViceTeacher
+                    };
+                    init();
+                }else{
+                    return false;
+                }
+            })
+        });
+        
+    });
+</script>
+
+</html>

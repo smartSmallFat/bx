@@ -1,0 +1,44 @@
+.bgTitle {
+	background: #F2F2F2;
+	line-height: 3em;
+	font-weight: bold;
+	border-bottom: 2px solid #ddd;
+}
+.line {
+	height: 3em;
+	line-height: 3em;
+}
+.text-center label {
+	font-weight: normal;
+	font-size: 17px;
+	margin-left: 1.5em;
+}
+.row:nth-of-type(even) {
+	background: rgba(93,255,185,0.15);
+}
+.btnGroup {
+	margin-top: 2%;
+}
+input[type="button"] {
+	background: #5eb978;
+	color: #fff;
+	width: 5%;
+}
+input[type="button"]:hover {
+	color: #fff;
+}
+input[type="button"]:focus {
+	color: #fff;
+}
+.my_container{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.my_smana{
+	font-size: 25px;
+	border-bottom: 2px solid #079783;
+	/*margin-top: 20px;*/
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}

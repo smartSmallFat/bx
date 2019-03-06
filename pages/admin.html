@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #admin-box image{
+            top: 0;
+            left: 0;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+        }
+
+        body{
+            margin:0;
+            padding:0;
+        }
+        div.bg {
+            top: 0;
+            left: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('../images/admin.images/admin.png') no-repeat center 0;
+            background-size:cover;
+        }
+
+
+       .admin-p2{
+           position: absolute;
+           margin-left: 1300px;
+           margin-top:658px;
+          color: #8c8c8c;
+
+       }
+        .form-inline{
+            position: absolute;
+           margin-left: 720px;
+            margin-top: 250px;
+        }
+        #user,#password{
+            color: gray;
+            width: 320px;
+            height:45px ;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid #b4b4b4;
+
+        }
+      .admin-p3{
+          color: gray;
+          float: right;
+          margin-top: 10px;
+      }
+        .admin-btn{
+            width: 320px;
+        }
+        .form-inline{
+            margin-left: 41px;
+            margin-top: 80px;
+        }
+        input::-webkit-input-placeholder{
+            padding-left: 25px;
+        }
+       #user:focus::-webkit-input-placeholder { color:transparent; }
+        #password:focus::-webkit-input-placeholder { color:transparent; }
+
+
+
+
+
+    </style>
+    <link rel="stylesheet" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="../dist/jquery-3.3.1.js"></script>
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+</head>
+<body>
+<!--弹出框-->
+<div class="modal fade" id="box">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" style="text-align: center">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: center;font-size: 18px;margin-top: 16px">请联系管理员重置密码！</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="admin-box">
+    <div class="bg"></div>>
+    <p class="admin-p2">此网页由burning-team全体成员制作</p>
+    <!--登录-->
+    <div style="width: 400px;height: 300px;background:rgba(255,255,255,0.3);position:fixed;margin-left: 570px;margin-top: 140px;border-radius:5px;">
+
+        <form class="form-inline" action="../index.html"  id="if">
+            <b><p style="position: absolute;margin-top:-63px;font-size: 24px;margin-left: 105px;color:white;opacity: 0.6">BaiXiang</p></b>
+            <div class="form-group" id="admin-user">
+                <label class="sr-only" for="user">UserName</label>
+                <input type="text" class="form-control" name="zhanghao" id="user" placeholder="用户名" class="admin-inp">
+                <span id="span1"><p class="glyphicon glyphicon-user" style="display:inline-block;margin-left:10px;position: absolute;margin-top:14px; opacity: 0.5"></p></span>
+
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="sr-only" for="password">Password</label>
+                <input type="password" class="form-control" name="mima" id="password" placeholder="密码" style="" >
+                <span id="span2"><p class="glyphicon glyphicon-lock" style="display: inline-block;position: absolute;margin-top: 80px;margin-left: 10px;opacity: 0.5"></p></span>
+            </div>
+            <br>
+            <button class="btn btn-info admin-btn btn-lg" id="admin-btn" style="">登录</button>
+            <br>
+            <p class="admin-p3" id="wj" data-toggle="modal" data-target="#box"><a href="javascript:;" style="" >忘记密码?</a></p>
+        </form>
+
+    </div>
+
+    </div>
+
+</div>
+
+</body>
+<script>
+//  var oUser=document.getElementById('#user');
+//  var oPass=document.getElementById('#password');
+//  var oBtn=document.getElementById('admin-btn');
+    var oWj=document.getElementById('wj');
+//点击忘记密码联系管理员
+    oWj.onclick=function () {
+//        alert('请联系管理员重置密码！')
+    };
+//    点击用户名框隐藏框内头像
+  $('#user').mousedown(function () {
+      $('#span1').css('display','none')
+  });
+////  失去焦点时内容显示
+//$('#user').blur(function () {
+//    $('#span1').css('display','block')
+//});
+//  点击密码框隐藏头像
+  $('#password').mousedown(function () {
+      $('#span2').css('display','none')
+  });
+
+//    点击登录判断身份
+    localStorage.setItem('Suser','admin');
+    localStorage.setItem('Spass','666666');
+    localStorage.setItem('Yuser','teacher');
+    localStorage.setItem('Ypass','888888');
+    $('#btn').on('click',function () {
+        $('a').attr('href','yemian.html')
+
+    });
+   /* if(){
+        localStorage.setItem('nowuser','admin');
+    }
+        else {
+        localStorage.setItem('nowuser','teach');
+        }*/
+
+
+    $('#if').submit(function () {
+        var ouser=$('#user').val();
+        var opass=$('#password').val();
+        var str=localStorage.getItem('Suser');
+        var str1=localStorage.getItem('Spass');
+        var ystr1=localStorage.getItem('Ypass');
+        var  ystr=localStorage.getItem('Yuser');
+        if(str==ouser){
+
+
+            if(opass==str1){
+
+            }else {
+                alert('密码错误');
+                return false;
+            }
+        }
+        else if(ystr==ouser){
+
+            if(opass==ystr1){
+
+            }else {
+                alert('密码错误');
+                return false;
+            }
+        }else {
+            alert('用户名不存在');
+            return false;
+        }
+    })
+
+
+
+
+
+</script>
+</html>

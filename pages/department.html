@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../font/font_887589_std16to2x1n/iconfont.css">
+    <script src="../dist/jquery-3.3.1.js"></script>
+    <script src="../dist/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #class-box {
+            width: 1140px;
+            height: 600px;
+            background: #e0f5ea;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4B4B4B;
+            font-family: '幼圆';
+            font-weight: bold;
+        }
+
+        th {
+            height: 52px;
+            text-align: center;
+            font-size: 18px;
+            color: #5d5d5d;
+        }
+
+        td {
+            text-align: center;
+            height: 42px;
+            font-size: 17px;
+            color: #4c4c4c;
+        }
+
+        header {
+            border-bottom: 1px solid #6e6e6e;
+        }
+
+        .iconfont {
+            font-size: 18px;
+        }
+        .iconfont {
+            cursor: pointer;
+        }
+        #pageBox ul {
+            width: 220px;
+            height: 36px;
+            /*background: darkgrey;*/
+            position: absolute;
+            right: 88px;
+            bottom: 10px;
+        }
+        #pageBox ul li {
+            width: 54px;
+            height: 28px;
+            float: left;
+            font-size: 17px;
+            font-family: '幼圆';
+            text-align: center;
+            border: 1px solid #98aabb;
+            background: #f4f7f8;
+        }
+
+        #pageBox ul li:hover {
+            background: rgba(207, 255, 225, 0.4);
+            cursor: pointer;
+        }
+
+        #prepage, #nextpage {
+            font-size: 19px;
+            color: #404040;
+        }
+
+        /*以上部分为公用，无需修改*/
+        #class-top {
+            height: 80px;
+            border-bottom: 1px solid #6e6e6e;
+        }
+
+        #class-top-left {
+            float: left;
+            width: 540px;
+            height: 80px;
+        }
+
+        #class-top-right {
+            float: right;
+            line-height: 80px;
+            margin-right: 60px;
+        }
+
+        #class-tipTxt {
+            float: left;
+            line-height: 80px;
+            font-size: 18px;
+            margin-left: 48px;
+        }
+
+        #class-input-group {
+            margin-top: 22px;
+        }
+
+        #class-table-box {
+            width: 1100px;
+            margin: 40px auto;
+            /*border: 1px solid #6e6e6e;*/
+        }
+
+        /*字体图标颜色*/
+        .delete {
+            color: #e80000;
+        }
+
+        .edit {
+            color: #346fac;
+        }
+
+        .details {
+            color: #38c6b6;
+        }
+        .modal-body .add {
+            margin-left: 60px;
+            width: 200px;
+            height: 24px;
+        }
+        .modal-title {
+            text-align: center;
+            font-size: 20px;
+        }
+        .modal-button {
+            font-size: 15px;
+            width: 66px;
+            float: left;
+            margin-left: 20px;
+        }
+        .modal-lg {
+            width: 500px;
+        }
+        .modal-body .p-body {
+            width: 110px;
+            float: left;
+            font-size: 17px;
+            line-height: 22px;
+            margin-left: 60px;
+        }
+        .modal-button-box {
+            width: 180px;
+
+            /*background: rosybrown;*/
+            margin-left: 260px;
+        }
+        #delete {
+            color: #4a4a4a;
+            font-size: 17px;
+            text-align: center;
+            margin-top: 140px;
+        }
+
+        .dep_red {
+            color: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin-left: 380px;
+            margin-top: -20px;
+        }
+
+        .dep_green {
+            color: #00cb00;
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin-left: 400px;
+            margin-top: -20px;
+            font-size: 20px;
+        }
+
+        .dep_Div {
+            position: relative;
+        }
+
+        .dep_h5 {
+            font-size: 16px;
+        }
+
+        #pageBox ul {
+            width: 400px;
+            height: 36px;
+            /*background: darkgrey;*/
+            position: absolute;
+            right: 58px;
+            bottom: 8px;
+        }
+
+        #pageBox ul li {
+            width: 54px;
+            height: 28px;
+            float: left;
+            font-size: 17px;
+            font-family: '微软雅黑';
+            text-align: center;
+            border: 1px solid #98aabb;
+            background: #f4f7f8;
+        }
+        .not_delete_color{
+            color: red;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div id="class-box">
+    <!--顶部(四字标题部分)-->
+    <header>
+        <h2>部门管理</h2>
+    </header>
+    <!--中间部分(查询+新建)-->
+    <section id="class-top">
+        <div id="class-top-left">
+            <div id="class-tipTxt">查询部门：</div>
+            <div class="input-group" id="class-input-group">
+                <input type="text" class="form-control dep_select_frame" placeholder="请输入部门名字">
+                <div class="input-group-btn">
+                    <button class="btn btn-default dep_select">搜索</button>
+                </div>
+                <div class="input-group-btn">
+                    <button class="btn btn-default cancel_select">重置搜索</button>
+                </div>
+            </div>
+        </div>
+        <div id="class-top-right">
+            <!--新建部门按钮-->
+            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#createClass"
+                    id="dep_createdep">
+                <i class="iconfont">&#xe61f;</i>
+                <span>新建部门</span>
+            </button>
+            <!--弹出新增部门的模态框-->
+            <div class="modal fade" id="createClass">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title" id="myModalLabel">新建部门</h3>
+                        </div>
+                        <div class="modal-body" id="box1">
+                            <div class="dep_Div"><p class="form-inline clearfix"><p class="p-body">部门编号*</p><input type="text" class="form-control add " id="dep_id" placeholder="请输入4-6位数数字"><span class="dep_Span"></span></p></div>
+                            <div class="dep_Div"><p class="form-inline clearfix"><p class="p-body">部门名称*</p><input type="text" class="form-control add" id="dep_name" placeholder="请输入中文汉字或输入大小写英语单词"><span class="dep_Span1"></span></p></div>
+                            <div class="dep_Div"><p class="form-inline clearfix"><p class="p-body">部门地点*</p><input type="text" class="form-control add" id="dep_address" placeholder="请输入中文汉字或大小写英语单词或数字"><span class="dep_Span2"></span></p></div>
+                            <div class="dep_Div"><p class="form-inline clearfix"><p class="p-body">部门人数*</p><input type="text" class="form-control add" id="dep_num" placeholder="请输入数字"></p><span class="dep_Span3"></span></div>
+                            <div class="dep_Div"><p class="form-inline clearfix"><p class="p-body">部门主任*</p><input type="text" class="form-control add" id="dep_director" placeholder="请输入中文汉字或输入大小写英语单词"><span class="dep_Span4"></span></p></div>
+                            <div class="dep_Div"><p class="form-inline clearfix"><p class="p-body">部门副主任*</p><input type="text" class="form-control add" id="dep_deputyDirector" placeholder="请输入中文汉字或输入大小写英语单词"><span class="dep_Span5"></span></p></div>
+                            <div style="height: 40px"></div>
+                            <p class="clearfix modal-button-box">
+                                <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消
+                                </button>
+                                <button type="button" class="btn btn-primary modal-button" data-dismiss="modal"
+                                        id="dep_ensure">确定
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--弹出编辑部门的模态框-->
+            <div class="modal fade" id="lookdepartment">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title">详细信息</h3>
+                        </div>
+                        <div class="modal-body " id="dep_edit_content">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="editdepartment">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title">编辑信息</h3>
+                        </div>
+                        <div class="modal-body " id="dep-edit-content">
+                            <div style="height: 40px"></div>
+                            <p class="clearfix modal-button-box">
+                                <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消
+                                </button>
+                                <button type="button" class="btn btn-primary modal-button" data-dismiss="modal"
+                                        id="dep_edit">确定
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--表格部分-->
+    <div id="class-table-box">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>部门编号</th>
+                <th>部门名称</th>
+                <th>部门地点</th>
+                <th>部门人数</th>
+                <th>部门主任</th>
+                <th>部门副主任</th>
+                <th>查看详情</th>
+                <th>编辑</th>
+                <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+    <!--分页部分-->
+    <div id="pageBox">
+        <ul>
+            <li>首页</li>
+            <li><i class="iconfont" id="prepage"><<</i></li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li><i class="iconfont" id="nextpage">>></i></li>
+            <li>尾页</li>
+        </ul>
+    </div>
+</div>
+<div class="modal " id="delete">
+    <div class="modal-dialog modal-sm ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">删除</h4>
+            </div>
+            <div class="modal-body">
+                你确定要删除吗?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary delete_sure" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//确定删除框-->
+<div class="modal " id="not_delete">
+    <div class="modal-dialog modal-sm ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body not_delete_color">
+              当前部门还有人员不能删除 !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary delete_sure" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+            $(function () {
+            var n=0;
+            var index;
+            var dId = document.getElementById("dep_id");
+            var dName = document.getElementById("dep_name");
+            var dAddress = document.getElementById("dep_address");
+            var dNum1 = document.getElementById("dep_num");
+            var dDirector = document.getElementById("dep_director");
+            var dDeputyDirector = document.getElementById("dep_deputyDirector");
+            var oSpan = document.querySelector('.dep_Span');
+            var oSpan1 = document.querySelector('.dep_Span1');
+            var oSpan2 = document.querySelector('.dep_Span2');
+            var oSpan3 = document.querySelector('.dep_Span3');
+            var oSpan4 = document.querySelector('.dep_Span4');
+            var oSpan5 = document.querySelector('.dep_Span5');
+            var  Select=$('.dep_select');
+            var departmentArr= [
+                {
+                    id: '16325', name: '教师部', address: '云华路666号', people: '20',
+                    director: '胡小倩', deputyDirector: '程杰'
+                },
+                {
+                    id: '18589', name: '后勤部', address: '云华路666号',
+                    people: '18', director: '张裕', deputyDirector: '李华'
+                },
+                {
+                    id: '18875', name: '安保部', address: '云华路666号',
+                    people: '10', director: '卢拉', deputyDirector: '张涛'
+                },
+                {
+                    id: '18585', name: '财务部', address: '云华路666号',
+                    people: '26', director: '芳草', deputyDirector: '张睿'
+                },
+                {
+                    id: '19587', name: '医务部', address: '云华路666号',
+                    people: '6', director: '芋头', deputyDirector: '谢希'
+                },
+                {
+                    id: '16587', name: '行政部', address: '云华路666号',
+                    people: '12', director: '瘦瘦', deputyDirector: '杨志'
+                },
+            ];
+            /*初始化数据*/
+            function init(arr) {
+                $('tbody').html('');
+                $.each(arr, function (i, v) {
+                    //v-->{user: "小红", phone: "18600002222", address: "春熙路"}
+                    $('tbody').append('<tr data-index="' + i + '"> <td>' + v.id + '</td><td>' + v.name + '</td><td>' + v.address + '</td><td>' + v.people + '</td><td>' + v.director + '</td><td>' + v.deputyDirector + '</td> <td><i class="iconfont details " id="dep_see"data-toggle="modal" data-target="#lookdepartment">&#xe612;</i></td> <td><i class="iconfont edit" id="dep_edit"data-toggle="modal" data-target="#editdepartment">&#xe696;</i></td> <td><i class="iconfont delete dep_delete"data-toggle="modal" data-target="#delete" >&#xe662;</i></td> </tr>')
+                });
+            }
+            init(departmentArr);
+            //查看
+            $('tbody').on('click', '#dep_see', function () {
+                var index = $(this).parents('tr').attr('data-index');
+                $('#dep_edit_content').html('').append('<p class="form-inline clearfix dep_p"><p class="p-body">部门编号:</p><h5 class="dep_h5 form-inline">' + departmentArr[index].id + '</h5></p> <p class="form-inline clearfix dep_p"><p class="p-body">部门名称:</p><h5 class="dep_h5 form-inline">' + departmentArr[index].name + '</h5></p> <p class="form-inline clearfix dep_p"><p class="p-body">部门地点:</p><h5 class="dep_h5 form-inline">' + departmentArr[index].address + '</h5></p> <p class="form-inline clearfix dep_p"><p class="p-body">部门人数: <h5 class="dep_h5 form-inline">' + departmentArr[index].people + '</h5></p> <p class="form-inline clearfix dep_p"><p class="p-body">部门主任:</p><h5 class="dep_h5 form-inline">' + departmentArr[index].director + '</h5></p> <p class="form-inline clearfix dep_p"><p class="p-body">部门副主任:</p><h5 class="dep_h5 form-inline">' + departmentArr[index].deputyDirector + '</h5></p><div style="height: 40px"></div> <p class="clearfix modal-button-box"> <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button> <button type="button" class="btn btn-primary modal-button" data-dismiss="modal"id="dep_edit">确定</button> </p>');
+                console.log(oSpan.css);
+            });
+            $('#dep_createdep').click(function () {
+                $('#dep_id').val('');
+                $('#dep_name').val('');
+                $('#dep_address').val('');
+                $('#dep_num').val('');
+                $('#dep_director').val('');
+                $('#dep_deputyDirector').val('');
+                oSpan.innerHTML = '';
+                oSpan1.innerHTML = '';
+                oSpan2.innerHTML = '';
+                oSpan3.innerHTML = '';
+                oSpan4.innerHTML = '';
+                oSpan5.innerHTML = '';
+            })
+            /*添加*/
+            $('#dep_ensure').click(function () {
+                var dep_span=$('#box1 span');
+                var dpt_Id = $('#dep_id').val();
+                var dpt_Name = $('#dep_name').val();
+                var dpt_Address = $('#dep_address').val();
+                var dpt_Num = $('#dep_num').val();
+                var dpt_Director = $('#dep_director').val();
+                var dpt_DeputyDirector = $('#dep_deputyDirector').val();
+                if( !dpt_Id==''|| dpt_Name==''||dpt_Address==''|| dpt_Num==''||dpt_Director==''||dpt_DeputyDirector==''){
+                    for (var i=0;i< dep_span.length;i++){
+                        if($(dep_span[i]).attr('class')=='dep_green'){
+                            n++;
+                        }
+                    }
+                    if(n>=6){
+                        departmentArr.push({
+                                id: dpt_Id,
+                                name: dpt_Name,
+                                address: dpt_Address,
+                                people: dpt_Num,
+                                director: dpt_Director,
+                                deputyDirector: dpt_DeputyDirector,
+                            }
+                        );
+                        init(departmentArr);
+                    }
+                }
+            });
+            /*修改*/
+            $('tbody').on('click', '#dep_edit', function () {
+                var index = $(this).parents('tr').attr('data-index');
+                $('#dep-edit-content').html('').append('<p class="form-inline clearfix"><p class="p-body">部门编号*</p><input type="text" id="dep_edit_Id2" class="form-control add" value="' + departmentArr[index].id + '" disabled ></p> <p class="form-inline clearfix"><p class="p-body">部门名称*</p><input type="text"id="dep_edit_name1" class="form-control add"  value="' + departmentArr[index].name + '" disabled></p> <div class="dep_Div"><p class="form-inline clearfix"><p class="p-body">部门地点*</p><input type="text" class="form-control add dep_address1"  value="' + departmentArr[index].address + '"  ><span class="dep_Span6"></span> </p></div> <div class="dep_Div"> <p class="form-inline clearfix"><p class="p-body">部门人数*</p><input type="text" class="form-control add dep_num2" value="' + departmentArr[index].people + '" ><span class="dep_Span7"></span></p></div> <div class="dep_Div"> <p class="form-inline clearfix"><p class="p-body">部门主任*</p><input type="text" class="form-control add dep_director1"  value="' + departmentArr[index].director + '" ><span class="dep_Span8"></span></p></div> <div class="dep_Div"> <p class="form-inline clearfix"><p class="p-body">部门副主任*</p><input type="text" class="form-control add dep_deputyDirector1"  value="' + departmentArr[index].deputyDirector + '" ><span class="dep_Span9"></span></p></div><div style="height: 40px"></div> <p class="clearfix modal-button-box"> <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button> <button type="button" class="btn btn-primary modal-button" data-dismiss="modal"id="edit">确定</button> </p>');
+                $('#edit').click(function () {
+                    var depEditId = $('#dep_edit_Id2').val();
+                    var depEditName1 = $('#dep_edit_name1').val();
+                    var depAddress1 = $('.dep_address1').val();
+                    var depNum1 = $('.dep_num2').val();
+                    var depDirector1 = $('.dep_director1').val();
+                    var depDeputyDirector1 = $('.dep_deputyDirector1').val();
+                    var edit_span = $('#dep-edit-content span');
+                    if (!depAddress1 == '' || depNum1 == '' || depDirector1 == '' || depDeputyDirector1 == '') {
+                        departmentArr.push({
+                                id: depEditId,
+                                name: depEditName1,
+                                address: depAddress1,
+                                people: depNum1,
+                                director: depDirector1,
+                                deputyDirector: depDeputyDirector1,
+                            }
+                        );
+                        departmentArr.splice(index, 1);
+                        init(departmentArr);
+                    }
+                }
+                    );
+                var  dAddress1=document.querySelector('.dep_address1');
+                var  dNum2=document.querySelector('.dep_num2');
+                var  dDirector1=document.querySelector('.dep_director1');
+                var dDeputyDirector1=document.querySelector('.dep_deputyDirector1');
+                var oSpan6=document.querySelector('.dep_Span6');
+                var oSpan7=document.querySelector('.dep_Span7');
+                var oSpan8=document.querySelector('.dep_Span8');
+                var oSpan9=document.querySelector('.dep_Span9');
+                dAddress1.onblur = function () {
+                    var sPhone = this.value;
+                    if (!reg.Word.test(sPhone)) {
+                        oSpan6.innerHTML = '输入错误！';
+                        oSpan6.className = 'dep_red'
+                    } else {
+                        oSpan6.innerHTML = '√';
+                        oSpan6.className = 'dep_green';
+                    }
+                }
+                dNum2.onblur = function () {
+                    var sPhone = this.value;
+                    if (!reg.peoples.test(sPhone)) {
+                        oSpan7.innerHTML = '输入错误！';
+                        oSpan7.className = 'dep_red'
+                    } else {
+                        oSpan7.innerHTML = '√';
+                        oSpan7.className = 'dep_green';
+                    }
+                };
+                dDirector1.onblur = function () {
+                    var sPhone = this.value;
+                    if (!reg.chinese.test(sPhone)) {
+                        oSpan8.innerHTML = '输入错误！';
+                        oSpan8.className = 'dep_red'
+                    } else {
+                        oSpan8.innerHTML = '√';
+                        oSpan8.className = 'dep_green';
+                    }
+
+                };
+                dDeputyDirector1.onblur = function () {
+                    var sPhone = this.value;
+                    if (!reg.chinese.test(sPhone)) {
+                        oSpan9.innerHTML = '输入错误！';
+                        oSpan9.className = 'dep_red'
+                    } else {
+                        oSpan9.innerHTML = '√';
+                        oSpan9.className = 'dep_green';
+                    }
+
+                };
+            });
+            /** 查询*/
+            Select.click(function () {
+                var  selectFrame=$('.dep_select_frame').val();
+                var  f_departmentArr=[];
+                $(departmentArr).each(function (i,v) {
+                    if(v.name.indexOf(selectFrame)!=-1){
+                    f_departmentArr.push(v);
+                    }
+                });
+                init(f_departmentArr);
+            });
+            //取消搜索
+            $('.cancel_select').click(function(){
+               init(departmentArr);
+               $('.dep_select_frame').val('');
+
+            })
+            /*
+             正则
+             */
+            /*删除*/
+            $('tbody').on('click','.dep_delete',function () {
+                    var index=$(this).parents('tr').attr('data-index');
+                    if(departmentArr[index].people==0){
+                        $('.delete_sure').click(function () {
+                            departmentArr.splice(index,1);
+                            init(departmentArr);
+                        });
+                    }else {
+                        $('.dep_delete').attr('data-target','#not_delete')
+                    }
+                });
+            var reg = {
+                num: /^\d{4,6}$/,
+                chinese: /^[a-zA-Z\u4e00-\u9fa5]{2,6}$/,
+                Word: /^[a-zA-Z0-9\u4e00-\u9fa5]{2,6}$/,
+                peoples: /^\d{0,2}$/,
+            };
+            dId.onblur = function () {
+                var sPhone = this.value;
+                if (!reg.num.test(sPhone)) {
+                    oSpan.innerHTML = '输入错误！';
+                    oSpan.className = 'dep_red'
+                } else {
+                    oSpan.innerHTML = '√';
+                    oSpan.className = 'dep_green';
+                }
+
+            }
+            dName.onblur = function () {
+                var sPhone = this.value;
+                if (!reg.chinese.test(sPhone)) {
+                    oSpan1.innerHTML = '输入错误！';
+                    oSpan1.className = 'dep_red'
+                } else {
+                    oSpan1.innerHTML = '√';
+                    oSpan1.className = 'dep_green';
+                }
+
+            }
+            dAddress.onblur = function () {
+                var sPhone = this.value;
+                if (!reg.Word.test(sPhone)) {
+                    oSpan2.innerHTML = '输入错误！';
+                    oSpan2.className = 'dep_red'
+                } else {
+                    oSpan2.innerHTML = '√';
+                    oSpan2.className = 'dep_green';
+                }
+
+            }
+            dNum1.onblur = function () {
+                var sPhone = this.value;
+                if (!reg.peoples.test(sPhone)) {
+                    oSpan3.innerHTML = '输入错误！';
+                    oSpan3.className = 'dep_red'
+                } else {
+                    oSpan3.innerHTML = '√';
+                    oSpan3.className = 'dep_green';
+                }
+            };
+            dDirector.onblur = function () {
+                var sPhone = this.value;
+                if (!reg.chinese.test(sPhone)) {
+                    oSpan4.innerHTML = '输入错误！';
+                    oSpan4.className = 'dep_red'
+                } else {
+                    oSpan4.innerHTML = '√';
+                    oSpan4.className = 'dep_green';
+                }
+
+            };
+            dDeputyDirector.onblur = function () {
+                var sPhone = this.value;
+                if (!reg.chinese.test(sPhone)) {
+                    oSpan5.innerHTML = '输入错误！';
+                    oSpan5.className = 'dep_red'
+                    a=false
+                } else {
+                    oSpan5.innerHTML = '√';
+                    oSpan5.className = 'dep_green';
+                    a=true
+                }
+
+            };
+            });
+</script>
+</html>

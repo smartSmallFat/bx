@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+
+        }
+        /*iframe框*/
+        #home-box{
+            width: 1140px;
+            height: 600px;
+            background: #eef8f4;
+            position: fixed;
+        }
+
+        .home-div1{
+            width: 350px;
+            height: 50px;
+            background: #ff9999;
+            margin-left:10px;
+            margin-top: 30px;
+            float: left;
+        }
+        .home-div2{
+            width: 350px;
+            height: 50px;
+            background: #66cd99;
+            margin-left: 35px;
+            margin-top: 30px;
+            float: left;
+        }
+        .green-p1{
+            position: absolute;
+            margin-left:10px;
+            margin-top: 25px;
+            color: #9d9d9d;
+            font-size: 16px;
+        }
+        .home-div3{
+            width: 350px;
+            height: 50px;
+            background: #ffcd66;
+            margin-left: 780px;
+            margin-top: 30px;
+            float: left;
+            position: absolute;
+        }
+        .red-p1,.red-p2,.red-p3,.red-p4,.red-p5{
+            font-size: 16px;
+        }
+        .red-p1{
+            position: absolute;
+            margin-left: 120px;
+            margin-top: 28px;
+            font-size: 16px;
+            color:snow;
+        }
+        .red-p2{
+            position: absolute;
+            margin-left:215px;
+            margin-top:89px;
+            color:snow;
+        }
+        .red-p3{
+            position: absolute;
+            margin-left: 300px;
+            margin-top: 45px;
+            color:snow;
+
+        }
+        .red-p4{
+            position: absolute;
+            margin-left: 100px;
+            margin-top: 130px;
+            color:snow;
+        }
+        .red-p5{
+            position: absolute;
+            margin-left: 273px;
+            margin-top: 155px;
+            color: snow;
+
+        }
+        .x-div1{
+            width: 350px;
+            height: 200px;
+            background: white;
+            position:absolute;
+            margin-left: 10px;
+            margin-top: 80px;
+        }
+        .home-div2-div1 {
+            width: 350px;
+            height: 200px;
+            background: white;
+            position: absolute;
+            margin-left: 395px;
+            margin-top: 80px;
+        }
+        .img1{
+            width: 350px;
+            height: 230px;
+        }
+        .home-div3-1{
+            width: 350px;
+            height: 200px;
+            background: white;
+            position: absolute;
+            margin-left: 780px;
+            margin-top: 80px;
+        }
+        .img2{
+            width: 350px;
+            height: 211px;
+        }
+        .p1,.p2,.p3{
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: white;
+        }
+        .home-box2-div1{
+            width: 730px;
+            height: 250px;
+            background: white;
+            position: absolute;
+            margin-top: 300px;
+            margin-left: 10px;
+        }
+        .home-div2-2{
+            width: 350px;
+            height: 60px;
+            background: white;
+        }
+        .div-right{
+            width: 350px;
+            height: 282px;
+            position: absolute;
+            background: white;
+            float: left;
+            margin-left: 780px;
+            margin-top: 300px;
+        }
+        .p4{
+            text-align:left;
+            font-size: 24px;
+            line-height: normal;
+            color: #ffaec1;
+            margin-left: 30px;
+            margin-top: 15px;
+            position: absolute;
+        }
+        hr{
+            height:1px;
+            border:none;
+            border-top:1px solid #cccccc;
+        }
+        .week-p1,.week-p2,.week-p3,.week-p4,.week-p5{
+            position: absolute;
+            color: #666666;
+            font-size: 16px;
+
+        }
+        .week-p1{
+            margin-left:110px;
+            margin-top: 18px;
+        }
+        .week-p2{
+            margin-left:120px;
+            margin-top: 58px;
+        }
+        .week-p3{
+            margin-left:135px;
+            margin-top:98px;
+        }
+        .week-p4{
+            margin-left:110px;
+            margin-top:138px;
+        }
+        .week-p5{
+            margin-left:140px;
+            margin-top:178px; ;
+
+        }
+        .img4{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            margin-top: 20px;
+            margin-left: 320px; ;
+        }
+        .home-box-div3{
+            width: 350px;
+            height: 240px;
+        }
+        .img5{
+            width: 350px;
+            height: 220px;
+        }
+        .img6{
+            width:730px;
+            height: 280px;
+            opacity: 0.65;
+            position: fixed;
+        }
+        .weather{
+            position: absolute;
+
+            height: 25px;
+            margin-left:840px;
+        }
+        .a1{
+
+            color: whitesmoke;
+        }
+        .bb{
+            width: 350px;
+            height: 200px;
+            position: absolute;
+            opacity: 0.8;
+        }
+    </style>
+    <script src="../dist/jquery-3.3.1.js"></script>
+    <script src="../js/calendar/js/calendar.js"></script>
+    <link rel="stylesheet" href="../js/calendar/css/calendar.css">
+</head>
+<body>
+<!--开始-->
+<div id="home-box">
+  <div class="weather">
+      <iframe src="http://tianqi.5ikfc.com:90/plugin-code/?style=4&dy=7&cl=00ff99&city=chengdu" allowTransparency="true" frameborder="0" scrolling="no" width="280" height="25" id="weather_frame"></iframe>
+  </div>
+<!--第一排-->
+    <!--黄色条框-->
+    <div id="yellow">
+    <div class="home-div1">
+        <p class="p1">荣誉榜</p>
+    </div>
+    <!--黄色条下的内容-->
+    <div class="x-div1">
+        <img src="../images/home/baobao.jpg" class="bb" title="刘小佳同学获得本周乖宝宝奖！">
+    </div>
+    </div>
+    <!--绿色条框-->
+    <div id="green">
+    <div class="home-div2">
+        <p class="p2">生源变化图</p>
+    </div>
+    <!--绿色条框下的内容-->
+        <div class="home-div2-div1">
+            <p class="green-p1">(近七年)</p>
+            <div class="div-img" >
+                <img src="../images/home/统计图.png" alt="" class="img1">
+            </div>
+        </div>
+<!--红色条框-->
+    <div>
+    <div class="home-div3">
+        <p class="p3">明日食谱</p>
+    </div>
+<!--红色条框下的内容-->
+<div class="home-div3-1">
+    <p class="red-p1"><a href="https://baobao.baidu.com/question/4817780bfb373a1654142be15db10e0d.html" class="a1">豆腐</a></p>
+    <p class="red-p2"><a href="https://baijiahao.baidu.com/s?id=1614471938915043048&wfr=spider&for=pc" class="a1">牛肉</a></p>
+    <p class="red-p3"><a href="http://www.qbaobei.com/jiankang/1213981.html" class="a1">生菜</a></p>
+    <p class="red-p4"><a href="http://www.qbaobei.com/chengzhang/1131080.html" class="a1">鱿鱼</a></p>
+    <p class="red-p5"><a href="https://ye.99.com.cn/youerwy/501662.htm" class="a1">西芹</a></p>
+    <img src="../images/home/列表2.png" alt="" class="img2">
+</div>
+    </div>
+<br>
+<!--第二块-->
+<div id="home-bg">
+<div id="home-box2">
+    <!--左边-->
+    <div class="home-box2-div1">
+        <img src="../images/home/公告栏.jpg" class="img6">
+        <b><p style="position: absolute;margin-left:280px;margin-top: 70px;font-size: 20px;color:#6c2a12">2018代课老师招聘</p></b>
+        <p style="position: fixed;font-size:20px;margin-top: 105px;margin-left:130px;color:#6c2a12">本园现需招聘<span style="font-size: 20px;color: red">2</span>名幼儿园代课老师,要求如下:</p>
+        <p style="position: absolute;font-size: 18px;margin-top:135px;margin-left:250px;color: #6c2a12"> 1.具有教师资格证</p>
+        <p style="position: absolute;font-size: 18px;margin-top: 165px;margin-left: 250px;color:#6c2a12">2.大专及大专以上文凭</p>
+        <p style="position: absolute;font-size: 18px;margin-left: 250px;margin-top: 195px;color:#6c2a12">3.具有良好教师素养</p>
+        <p ><a  href="notice.html" style="position: absolute;margin-top: 225px;margin-left:580px;font-size: 14px;color:#6c2a12;">更多>></a></p>
+
+    </div>
+</div>
+    <!--右边-->
+    <div id="home-sm">
+    <div class="div-right">
+<div class="home-box-div2">
+    <!--顶部-->
+    <div class="home-div2-2">
+    <b><p class="p4">一周统一工作安排</p></b>
+        <img src="../images/home/加号.png" alt="" class="img4">
+    </div>
+    <hr>
+    <div class="home-box-div3">
+        <p class="week-p1"><a href="javascript:;">升旗仪式(周一九点)</a></p>
+        <p class="week-p2"><a href="javascript:;">学习指认五官</a></p>
+        <p class="week-p3"><a href="javascript:;">健康游戏</a></p>
+        <p class="week-p4"><a href="javascript:;">学习良好生活习惯</a></p>
+        <p class="week-p5"><a href="javascript:;">音乐欣赏</a></p>
+        <img src="../images/home/列表图1.png" class="img5">
+    </div>
+</div>
+</div>
+    </div>
+</div>
+    </div></div>
+</body>
+</html>

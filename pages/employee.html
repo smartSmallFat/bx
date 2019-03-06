@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../dist/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../font/font_887589_std16to2x1n/iconfont.css">
+    <script src="../dist/jquery-3.3.1.js"></script>
+    <script src="../dist/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #class-box{
+            width: 1140px;
+            height: 600px;
+            background: #e0f5ea;
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        h2{
+            text-align: center;
+            color: #4B4B4B;
+            font-family: '幼圆';
+            font-weight: bold;
+        }
+        th{
+            height: 52px;
+            text-align: center;
+            font-size: 18px;
+            color: #5d5d5d;
+        }
+        td{
+            text-align: center;
+            height:42px;
+            font-size: 17px;
+            color: #4c4c4c;
+        }
+        header{
+            border-bottom: 1px solid #6e6e6e;
+        }
+        .iconfont{
+            font-size: 18px;
+        }
+        .iconfont{
+            cursor:pointer ;
+        }
+        #pageBox ul li:hover{
+            background: rgba(207, 255, 225, 0.4);
+            cursor: pointer;
+        }
+        #prepage,#nextpage{
+            font-size: 19px;
+            color: #404040;
+        }
+        /*以上部分为公用，无需修改*/
+        #class-top{
+            height: 80px;
+            border-bottom: 1px solid #6e6e6e;
+        }
+        #class-top-left{
+            float: left;
+            width: 540px;
+            height: 80px;
+        }
+        #class-top-right{
+            float: right;
+            line-height: 80px;
+            margin-right: 60px;
+
+        }
+        #class-tipTxt{
+            float: left;
+            line-height: 80px;
+            font-size: 18px;
+            margin-left: 48px;
+        }
+        #class-input-group{
+            margin-top: 22px;
+        }
+        #class-table-box{
+            width: 1100px;
+            margin: 40px auto;
+            /*border: 1px solid #6e6e6e;*/
+        }
+        /*字体图标颜色*/
+        .edit{
+            color: #346fac;
+        }
+        .details{
+            color: #38c6b6;
+        }
+        .modal-body .add{
+            margin-left: 60px;
+            width: 200px;
+            height: 24px;
+        }
+        .modal-title{
+            text-align: center;
+            font-size: 20px;
+        }
+        .modal-button{
+            font-size: 15px;
+            width: 66px;
+            float: left;
+            margin-left: 20px;
+        }
+        .modal-lg{
+            width: 480px;
+        }
+        .modal-body .p-body{
+            width: 110px ;
+            float: left ;
+            font-size: 17px ;
+            line-height: 22px ;
+            margin-left: 60px ;
+        }
+        .modal-button-box{
+            width: 180px;
+
+            /*background: rosybrown;*/
+            margin-left: 260px;
+        }
+        #myModalLabel{
+            color: #000;
+            font-size: 20px;
+            text-align: center;
+        }
+        #delete{
+            color: #4a4a4a;
+            font-size: 17px;
+            text-align: center;
+            margin-top: 140px;
+        }
+        .delete{
+            color: red;
+        }
+        .modal-body-position{
+            position: relative;
+        }
+        #pageBox ul{
+            width: 400px;
+            height: 36px;
+            /*background: darkgrey;*/
+            position: absolute;
+            right: 58px;
+            bottom: 8px;
+        }
+        #pageBox ul li{
+            width: 54px;
+            height: 28px;
+            float: left;
+            font-size: 17px;
+            font-family: '微软雅黑';
+            text-align: center;
+            border: 1px solid #98aabb;
+            background: #f4f7f8;
+        }
+        .red{
+            position: absolute;
+            top: -20px;
+            left: 380px;
+            color: red;
+        }
+        .green{
+            position: absolute;
+            top: -20px;
+            left: 380px;
+            color: green;
+        }
+        .inline{
+            display: inline;
+        }
+        .dropdown-toggle{
+            line-height: 12px;
+            text-align: left;
+        }
+        .modal-body-position ul{
+            width: 200px;
+            margin-left: 170px;
+        }
+    </style>
+</head>
+<body>
+<div id="class-box">
+    <!--顶部(四字标题部分)-->
+    <header>
+        <h2>职工管理</h2>
+    </header>
+    <!--中间部分(查询+新建)-->
+    <section id="class-top">
+        <!--查询部分-->
+        <div id="class-top-left">
+            <div id="class-tipTxt">查询职工：</div>
+            <div class="input-group" id="class-input-group">
+                <!--<div class="input-group-btn">-->
+                    <!--<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
+                        <!--按职工姓名查询-->
+                        <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu" >-->
+                        <!--<li><a href="#">按职工姓名查询</a></li>-->
+                        <!--<li><a href="#">按职工部门查询</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <input type="text" class="form-control employee-search" placeholder="请输入职工姓名">
+                <div class="input-group-btn">
+                    <button class="btn btn-default employee-gosearch">搜索</button>
+                    <button class="btn btn-default employee-research">重置搜索</button>
+                </div>
+            </div>
+        </div>
+        <!--新建按钮及弹出框-->
+        <div  id="class-top-right">
+            <!--新建班级按钮-->
+            <button class="btn btn-default"  type="button"  data-toggle="modal" data-target="#createEmployee">
+                <i class="iconfont">&#xe61f;</i>
+                <span>新增员工信息</span>
+            </button>
+            <!--弹出的模态框-->
+            <!--新增-->
+            <div class="modal fade" id="createEmployee">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title" id="myModalLabel">新建职工</h3>
+                        </div>
+                        <div class="modal-body create-new" id="create-new">
+                            <div class="modal-body-position" id="eid"><p class="form-inline clearfix"><p class="p-body" >职工编号*</p><input id="id" type="text" class="form-control add  regid" disabled value="1001"><p class="inline span-cancle span-id"><span class="green"></span></p></p></div>
+                            <div class="modal-body-position" id="ename"><p class="form-inline clearfix"><p class="p-body" >姓名*</p><input id="name" type="text" class="form-control add regname " ><p class="inline span-name span-cancle "><span class=""></span></p></p></div>
+                            <div class="modal-body-position" id="edepartment"><p class="form-inline clearfix"><p class="p-body" >部门*</p>
+                                <input id="department" type="button" class="form-control add regdepartment dropdown-toggle" data-toggle="dropdown" >
+                                <ul class="dropdown-menu" id="employee-menu">
+                                    <li><a href="#">教师部</a></li>
+                                    <li><a href="#">后勤部</a></li>
+                                    <li><a href="#">安保部</a></li>
+                                    <li><a href="#">财务部</a></li>
+                                    <li><a href="#">医务部</a></li>
+                                    <li><a href="#">行政部</a></li>
+                                </ul>
+                                <p class=" inline span-department span-cancle "><span class="green"></span></p></p></div>
+                            <div class="modal-body-position" id="estate"><p class="form-inline clearfix"><p class="p-body" >在职状态*</p>
+                                <input id="state" type="button" class="form-control add regstate dropdown-toggle" data-toggle="dropdown" >
+                                <ul class="dropdown-menu" id="state-menu">
+                                    <li><a href="#">在职</a></li>
+                                    <li><a href="#">离职</a></li>
+                                </ul>
+                                <p class="inline span-state span-cancle "><span class="green"></span></p></p></div>
+                            <div class="modal-body-position" id="esex"><p class="form-inline clearfix"><p class="p-body" >性别*</p>
+                                <input id="sex" type="button" class="form-control add regsex dropdown-toggle" data-toggle="dropdown"  >
+                                <ul class="dropdown-menu" id="sex-menu">
+                                    <li><a href="#">男</a></li>
+                                    <li><a href="#">女</a></li>
+                                </ul>
+                                <p class=" inline span-sex span-cancle"><span class="green"></span></p></p></div>
+                            <div class="modal-body-position" id="eemployee"><p class="form-inline clearfix"><p class="p-body" >职位*</p><input id="employee" type="text" class="form-control add regemployee " ><p class="inline span-employee span-cancle"><span class=""></span></p></p></div>
+                            <div class="modal-body-position" id="etel"><p class="form-inline clearfix"><p class="p-body" >联系电话*</p><input id="tel" type="text" class="form-control add regtel " ><p class="inline span-tel span-cancle "><span class=""></span></p></p></div>
+                            <div class="modal-body-position" id="eaddr"><p class="form-inline clearfix"><p class="p-body" >家庭地址*</p><input id="addr" type="text" class="form-control add regaddr " placeholder="请输入6~20个字符"><p class="inline span-addr span-cancle"><span class=" "></span></p></p></div>
+                            <div class="modal-body-position" id="etime"><p class="form-inline clearfix"><p class="p-body" >入职时间</p><input id="time" type="text" class="form-control add regtime " ><p class=" inline span-time span-cancle"><span class="green"></span></p></p></div>
+                            <div class="modal-body-position" id="edate"><p class="form-inline clearfix"><p class="p-body" >出生日期</p><input id="date" type="text" class="form-control add regdate " ><p class="  inline span-date span-cancle "><span class="green"></span></p></p></div>
+
+                            <div style="height: 40px" id="espace"></div>
+                            <p class="clearfix modal-button-box" id="ebtn">
+                                <button type="button" class="btn btn-primary modal-button create-sure" data-dismiss="modal" id=" ">确定</button>
+                                <button type="button" class="btn btn-default modal-button create-cancle" data-dismiss="modal">取消</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--查看-->
+            <div class="modal fade" id="detailsEmployee">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title" >职工详情</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p class="form-inline clearfix"><p class="p-body" >职工编号*</p><input  type="text" class="form-control add id" disabled value="1001"></p>
+                            <p class="form-inline clearfix"><p class="p-body" >姓名*</p><input  type="text" class="form-control add name" disabled></p>
+                            <p class="form-inline clearfix"><p class="p-body" >部门*</p><input  type="text" class="form-control add department" disabled ></p>
+                            <p class="form-inline clearfix"><p class="p-body" >在职状态*</p><input  type="text" class="form-control add state" disabled></p>
+                            <p class="form-inline clearfix"><p class="p-body" >性别*</p><input  type="text" class="form-control add sex" disabled></p>
+                            <p class="form-inline clearfix"><p class="p-body" >职位*</p><input  type="text" class="form-control add employee" disabled></p>
+                            <p class="form-inline clearfix"><p class="p-body" >联系电话*</p><input  type="text" class="form-control add tel" disabled></p>
+                            <p class="form-inline clearfix"><p class="p-body" >家庭地址*</p><input  type="text" class="form-control add addr" disabled></p>
+                            <p class="form-inline clearfix"><p class="p-body" >入职时间</p><input  type="text" class="form-control add time" disabled></p>
+                            <p class="form-inline clearfix"><p class="p-body" >出生日期</p><input  type="text" class="form-control add date" disabled></p>
+
+                            <div style="height: 40px"></div>
+                            <p class="clearfix modal-button-box">
+                                <button type="button" class="btn btn-primary modal-button " data-dismiss="modal" >确定</button>
+                                <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--编辑-->
+            <div class="modal fade" id="editEmployee">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title" >编辑职工</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >职工编号*</p><input  type="text" class="form-control add oid " disabled value="1001"></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >姓名*</p><input  type="text" class="form-control add oname regname" placeholder=""><span class="-span-name"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >部门*</p><input  type="text" class="form-control add odepartment regdepartment" placeholder="" ><span class="-span-department"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >在职状态*</p><input  type="text" class="form-control add ostate regstate" placeholder=""><span class="-span-state"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >性别*</p><input  type="text" class="form-control add osex regsex" placeholder=""><span class="-span-sex"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >职位*</p><input  type="text" class="form-control add oemployee regemployee" placeholder=""><span class="-span-employee"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >联系电话*</p><input  type="text" class="form-control add otel regtel" placeholder=""><span class="-span-tel"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >家庭地址*</p><input  type="text" class="form-control add oaddr regaddr" placeholder="" ><span class="-span-addr"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >入职时间</p><input  type="text" class="form-control add otime " placeholder=""><span class="-span-time"></span></p></div>
+                            <div class="modal-body-position"><p class="form-inline clearfix"><p class="p-body" >出生日期</p><input  type="text" class="form-control add odate " placeholder=""><span class="-span-date"></span></p></div>
+
+                            <div style="height: 40px"></div>
+                            <p class="clearfix modal-button-box">
+                                <button type="button" class="btn btn-primary modal-button edit-sure" data-dismiss="modal" >确定</button>
+                                <button type="button" class="btn btn-default modal-button" data-dismiss="modal">取消</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--删除-->
+    <div class="modal " id="delete">
+        <div class="modal-dialog modal-sm ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"  class="close" data-dismiss="modal" >
+                        <span >&times;</span>
+                    </button>
+                    <h4 class="modal-title" >删除</h4>
+                </div>
+                <div class="modal-body">
+                    你确定要删除吗?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default delete-sure" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--表格部分-->
+    <div id="class-table-box">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>职工编号</th><th>职工姓名</th><th>所在部门</th><th>在职状态</th><th>性别</th><th>所处职位</th><th>联系电话</th><th>家庭地址</th><th>查看详情</th><th>编辑</th><th>删除</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot></tfoot>
+        </table>
+    </div>
+    <!--分页部分-->
+    <div id="pageBox">
+        <ul>
+            <li>首页</li>
+            <li><i class="iconfont" id="prepage"><<</i></li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li><i class="iconfont" id="nextpage">>></i></li>
+            <li>尾页</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    var employeeArr=[
+        {
+            id:1002,
+            name: '李大胖',
+            department:'教师部',
+            state:'在职',
+            sex:'男',
+            employee:'职工',
+            tel:18024505698,
+            addr:'成都市高新区',
+            time:'2008-3-12',
+            date:'1985-2-04'
+
+        },
+        {
+            id:1003,
+            name: '罗小胖',
+            department:'教师部',
+            state:'在职',
+            sex:'女',
+            employee:'职工',
+            tel:18034576890,
+            addr:'成都市高新区',
+            time:'2015-3-12',
+            date:'1995-2-04'
+        },
+        {
+            id:1004,
+            name: '张啊哈',
+            department:'后勤部',
+            state:'在职',
+            sex:'女',
+            employee:'职工',
+            tel:13677889900,
+            addr:'成都市高新区',
+            time:'2016-6-15',
+            date:'1998-5-28'
+        }
+        ,
+        {
+            id:1005,
+            name: '张小哈',
+            department:'安保部',
+            state:'在职',
+            sex:'男',
+            employee:'职工',
+            tel:13877885566,
+            addr:'成都市高新区',
+            time:'2016-6-15',
+            date:'1998-5-28'
+        }
+    ];
+    //    正则数组
+    var reg={
+        rname:/^[\u4e00-\u9fa5]{2,6}$/,
+        rdepartment:/^[\u4e00-\u9fa5]{3,6}$/,
+        rstate:/^[\u4e00-\u9fa5]{2,6}$/,
+        rsex:/^['男'|'女']$/,
+        remployee:/^[\u4e00-\u9fa5]{2,6}$/,
+        rtel:/^1[3-9]\d{9}$/,
+        raddr:/^[\u4e00-\u9fa5]{6,30}$/,
+    }
+    var n=0;
+    var index;
+    function init(arr) {
+        $('tbody').html('');
+        $.each(arr,function (i,v) {
+            $('tbody').append('<tr data-index="'+i+'"><td>'+v.id+'</td><td>'+v.name+'</td><td>'+v.department+'</td><td>'+v.state+'</td><td>'+v.sex+'</td><td>'+v.employee+'</td><td>'+v.tel+'</td><td>'+v.addr+'</td><td><i class="iconfont details" data-toggle="modal" data-target="#detailsEmployee" >&#xe612;</i></td><td><i class="iconfont edit" data-toggle="modal" data-target="#editEmployee">&#xe696;</i></td><td><i class="iconfont delete" data-toggle="modal" data-target="#delete"  >&#xe662;</i></td></tr>')
+        });
+    }
+    init(employeeArr);
+    //查询
+    $('.employee-gosearch').click(function () {
+        var searchArr=[];
+        var str=$('.employee-search').val();
+        $(employeeArr).each(function (i,v) {
+            if(v.name.indexOf(str)!=-1) {
+                searchArr.push(v);
+            }
+        });init(searchArr);
+    })
+    //重置查询
+    $('.employee-research').click(function () {
+        $('.employee-search').val('');
+        init(employeeArr);
+    })
+    //新增
+    $('.create-sure').click(function () {
+//       init(employeeArr);
+        var sId=$('#id').val();
+        var sNmae=$('#name').val();
+        var sDepartment=$('#department').val();
+        var sState=$('#state').val();
+        var sSex=$('#sex').val();
+        var sEmployee=$('#employee').val();
+        var sTel=$('#tel').val();
+        var sAddr=$('#addr').val();
+        var sTime=$('#time').val();
+        var sDate=$('#date').val();
+        var aspan=$('#create-new span');
+        if(!(sId==''||sNmae==''||sDepartment==''||sState==''||sSex==''||sEmployee==''||sTel==''||sAddr==''||sTime==''||sDate=='')) {//! sId==''||sNmae==''||sDepartment==''||sState==''||sSex==''||sEmployee==''||sTel==''||sAddr==''||sTime==''||sDate==''
+            for (var i = 0; i < aspan.length; i++) {
+                if ($(aspan[i]).attr('class')=='green') {//
+                    n++;
+                }
+            }
+             if (n==10) {
+                employeeArr.push({
+                    id: sId,
+                    name: sNmae,
+                    department: sDepartment,
+                    state: sState,
+                    sex: sSex,
+                    employee: sEmployee,
+                    tel: sTel,
+                    addr: sAddr,
+                    time: sTime,
+                    date: sDate,
+                })
+             }
+        }
+//        $('#id').val('');
+        $('#name').val('');
+        $('#department').val('');
+        $('#state').val('');
+        $('#sex').val('');
+        $('#employee').val('');
+        $('#tel').val('');
+        $('#addr').val('');
+        $('#time').val('');
+        $('#date').val('');
+        //点击确定正则提示消失
+        aspan.html('');
+        init(employeeArr);
+        n=0;
+    });
+    //查看详情
+    $('tbody').on('click','.details',function () {
+        var index=$(this).parents('tr').attr('data-index');
+        $('.id').val(employeeArr[index].id);
+        $('.name').val(employeeArr[index].name);
+        $('.department').val(employeeArr[index].department);
+        $('.state').val(employeeArr[index].state);
+        $('.sex').val(employeeArr[index].sex);
+        $('.employee').val(employeeArr[index].employee);
+        $('.tel').val(employeeArr[index].tel);
+        $('.addr').val(employeeArr[index].addr);
+        $('.time').val(employeeArr[index].time);
+        $('.date').val(employeeArr[index].date);
+    });
+    //编辑
+    $('tbody').on('click','.edit',function () {
+        index=$(this).parents('tr').attr('data-index');
+        $('.oid').val(employeeArr[index].id);
+        $('.oname').val(employeeArr[index].name);
+        $('.odepartment').val(employeeArr[index].department);
+        $('.ostate').val(employeeArr[index].state);
+        $('.osex').val(employeeArr[index].sex);
+        $('.oemployee').val(employeeArr[index].employee);
+        $('.otel').val(employeeArr[index].tel);
+        $('.oaddr').val(employeeArr[index].addr);
+        $('.otime').val(employeeArr[index].time);
+        $('.odate').val(employeeArr[index].date);
+        //点击确定
+        $('.edit-sure').click(function () {
+            var sId = $('.oid').val();
+            var sName = $('.oname').val();
+            var sDepartment = $('.odepartment').val();
+            var sState = $('.ostate').val();
+            var sSex = $('.osex').val();
+            var sEmployee = $('.oemployee').val();
+            var sTel = $('.otel').val();
+            var sAddr = $('.oaddr').val();
+            var sTime = $('.otime').val();
+            var sDate = $('.odate').val();
+            employeeArr.splice(index, 1,{
+                id: sId,
+                name: sName,
+                department: sDepartment,
+                state: sState,
+                sex: sSex,
+                employee: sEmployee,
+                tel: sTel,
+                addr: sAddr,
+                time: sTime,
+                date: sDate,
+            });
+            init(employeeArr);
+        })
+    })
+    //删除
+    $('tbody').on('click','.delete',function () {
+        index=$(this).parents('tr').attr('data-index');
+    })
+    $('#delete').on('click','.delete-sure',function () {
+        employeeArr.splice(index,1);
+        console.log(employeeArr)
+        init(employeeArr);
+    });
+
+    //点击取消正则提示消失
+    $('.create-cancle').click(function () {
+        var aspan=$('.span-cancle');
+//        $('#id').val('');
+        $('#name').val('');
+        $('#department').val('');
+        $('#state').val('');
+        $('#sex').val('');
+        $('#employee').val('');
+        $('#tel').val('');
+        $('#addr').val('');
+        $('#time').val('');
+        $('#date').val('');
+        aspan.html('');
+    })
+
+    //部门
+    $('#employee-menu a').click(function () {
+        $('.regdepartment').val($(this).html());
+    })
+    //状态
+    $('#state-menu a').click(function () {
+        $('.regstate').val($(this).html());
+    })
+    //性别)
+    $('#sex-menu a').click(function () {
+        $('.regsex').val($(this).html());
+    })
+    //正则判断
+
+    $('.regname').blur(function (){
+        var sname=$('.regname').val();
+        if(!reg.rname.test(sname)){
+            $('.span-name span').html('输入错误');
+            $('.span-name span').addClass('red');
+        }else{
+            $('.span-name  span').html('√');
+            $('.span-name  span').addClass('green');
+        }
+    });
+    $('.regname').focus(function (){
+        $('.span-name  span').html('');
+    });
+    //职位正则
+    $('.regemployee').blur(function (){
+        var semployee=$('.regemployee').val();
+        if(!reg.remployee.test(semployee)){
+            $('.span-employee  span').html('输入错误');
+            $('.span-employee  span').addClass('red');
+        }else{
+            $('.span-employee  span').html('√');
+            $('.span-employee  span').addClass('green');
+        }
+    });
+    $('.regemployee').focus(function (){
+        $('.span-employee  span').html('');
+    });
+    //电话号码正则
+    $('.regtel').blur(function (){
+        var stel=$('.regtel').val();
+        if(!reg.rtel.test(stel)){
+            $('.span-tel span').html('输入错误');
+            $('.span-tel span').addClass('red');
+        }else{
+            $('.span-tel  span').html('√');
+            $('.span-tel  span').addClass('green');
+        }
+    });
+    $('.regtel').focus(function (){
+        $('.span-tel  span').html('');
+    });
+    //地址正则
+    $('.regaddr').blur(function (){
+        var saddr=$('.regaddr').val();
+        if(!reg.raddr.test(saddr)){
+            $('.span-addr  span').html('输入错误');
+            $('.span-addr  span').addClass('red');
+        }else{
+            $('.span-addr  span').html('√');
+            $('.span-addr  span').addClass('green');
+        }
+    });
+    $('.regaddr').focus(function (){
+        $('.span-addr  span').html('');
+    });
+</script>
+</html>
